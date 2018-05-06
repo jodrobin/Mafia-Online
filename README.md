@@ -1,1 +1,1 @@
-# CMPS-183-Project
+# Mafia Online, a digital version of the party game Mafia
