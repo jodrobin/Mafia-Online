@@ -7,6 +7,9 @@
 # There is an implicit 'id integer autoincrement' field
 # Consult manual for more options, validators, etc.
 
+def get_user_email():
+    return auth.user.email if auth.user else None
+
 db.define_table('player',
                 Field('user_email', default=get_user_email()),
                 Field('bio', 'text'),
