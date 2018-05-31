@@ -2,3 +2,101 @@
 .colorful {
   color: #bb8833;
 }
+
+div.main_content{
+  height: 100%;
+  background-image: url('../images/welcome_background.jpg');
+  background-size:cover;
+}
+
+div.welcome_screen{
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h2.welcome_pt1{
+  padding: 0;
+  margin: 0;
+}
+h1.welcome_pt2{
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, Geneva, sans-serif;
+}
+div.welcome_btn_list {
+  padding: 20px;
+}
+
+.welcome_btn, button {
+  width: 10em;
+  padding:7px 30px;
+  margin:0 0.5em 0.5em 0;
+  display:inline-block;
+  background-color:firebrick;
+  font-size:1.5em;
+  color:white
+}
+
+.page_body{
+  height: 85%;
+  background-color: white;
+}
+
+body{
+  background-image: url(/static/images/welcome_background.jpg);
+}
+
+div.user_html{
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  height: 100%;
+  background-image: url('../images/welcome_background.jpg');
+  background-size:cover;
+}
+
+h2.user_html_header{
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -450%);
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+div.user_html_body{
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.user_html_body .control-label{
+  font-size: 1.4em;
+}
+
+div.user_html_body .form-control{
+  border: 1px solid gainsboro;
+}
+
+div.user_html_body .btn, button {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  width: 5em;
+  padding:7px 15px 10px 15px;
+  margin:0 0.5em 0.5em 0.5em;
+  display:inline-block;
+  background-color:firebrick;
+  font-size:1.5em;
+  color:white
+}
+
+div.user_html_body .reset_pass_btn{
+  width: 11em;
+  position: absolute;
+  right: 0em;
+  bottom: -2em;
+}

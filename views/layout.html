@@ -13,11 +13,7 @@
     {{include "web2py_ajax.html"}}
   </head>
   <body class="black">
-    {{if response.flash:}}
-    <div class="w2p_flash">
-      {{=response.flash}}
-    </div>
-    {{pass}}
+
     <header class="black padded">
       <div class="container middle max900">
         <div class="fill middle">
@@ -25,27 +21,17 @@
           <div class="burger accordion">
             <input type="checkbox" id="menu"/>
             {{=MENU(response.menu,_class='menu')}}
-            <ul class="menu right">
-              <li>
-                {{=auth.navbar(mode='dropdown')}}
-              </li>
-            </ul>
           </div>
         </div>
       </div>
     </header>
-    <main class="white">
+    <main class="page_body">
       {{include}}
     </main>
     <footer class="black">
-      <div class="silver center padded social">
-        <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u={url}"></a>
-        <a class="fa fa-twitter" href="https://twitter.com/home?status={url}"></a>
-        <a class="fa fa-google" href="https://plus.google.com/share?url={url}"></a>
-      </div>
       <div class="container padded max900">
         <div class="fill">
-          Copyright @ 2016
+          Copyright @ 2018
         </div>
       </div>
     </footer>
