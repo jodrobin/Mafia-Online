@@ -9,7 +9,7 @@
 {{end}}
 
 <div class="main_content">
-    //welcome screen when not logged in
+    <!-- welcome screen when not logged in -->
     <div id="vue-div" class="lobby_main_content display:none">
       <div class="welcome_main_content" v-if="!logged_in">
         <div class="welcome_screen">
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      //main lobby when logged in
+      <!-- main lobby when logged in -->
       <div class="main_lobby_content" v-if="logged_in">
         <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='logout')}}">Log Out</a>
       </div>
