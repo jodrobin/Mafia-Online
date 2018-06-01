@@ -4,29 +4,34 @@
 <link href="{{=URL('static','css/stupid.css')}}" rel="stylesheet" type="text/css"/>
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-    var my_url = "{{=URL('api', 'my_method')}}";
+    var users_url = "{{=URL('api', 'get_users')}}";
 </script>
 {{end}}
 
 <div class="main_content">
     
     {{if auth.user is None:}}
+    <div class="welcome_main_content">
+      <div class="welcome_screen">
+        <h2 class="welcome_pt1">Welcome to</h2>
+        <h1 class="welcome_pt2">Mafia Online</h1>
 
-    <div class="welcome_screen">
-      <h2 class="welcome_pt1">Welcome to</h2>
-      <h1 class="welcome_pt2">Mafia Online</h1>
-
-      <div class="welcome_btn_list">
-        <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='login')}}">Log In</a>
-        <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='register')}}">Sign Up</a>
+        <div class="welcome_btn_list">
+          <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='login')}}">Log In</a>
+          <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='register')}}">Sign Up</a>
+        </div>
       </div>
     </div>
 
     {{pass}}
-    <div id="vue-div" class="display:none">
+    <div id="vue-div" class="lobby_main_content display:none">
+
+        <div class="main_lobby" v-if="logged_in">
+          <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='logout')}}">Log Out</a>
+        </div>
+
         <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
     </div>
-
 </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>

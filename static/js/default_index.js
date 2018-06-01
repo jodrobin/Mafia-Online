@@ -13,18 +13,34 @@ var app = function() {
         }
     };
 
+    self.get_users = function () {
+        $.getJSON(users_url, function (data) {
+            self.vue.users = data.users;
+            self.vue.logged_in = data.logged_in;
+            self.vue.user_id = data.user_id;
+            self.vue.user_username = data.user_username;
+        });
+    };
+
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
+            users: [],
+            user_id: null,
+            user_username: null,
+            logged_in: false,
         },
         methods: {
         }
 
     });
 
+    self.get_users();
+
+    $("#vue-div").show();
 
     return self;
 };

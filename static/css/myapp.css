@@ -3,7 +3,7 @@
   color: #bb8833;
 }
 
-div.main_content{
+div.welcome_main_content{
   height: 100%;
   background: url('../images/welcome_background.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -103,4 +103,8 @@ div.user_html_body .reset_pass_btn{
   position: absolute;
   left: 0em;
   bottom: -2em;
+}
+
+div.lobby_main_content{
+    height: 100%;
 }
