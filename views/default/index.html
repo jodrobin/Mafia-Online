@@ -9,28 +9,24 @@
 {{end}}
 
 <div class="main_content">
-    
-    {{if auth.user is None:}}
-    <div class="welcome_main_content">
-      <div class="welcome_screen">
-        <h2 class="welcome_pt1">Welcome to</h2>
-        <h1 class="welcome_pt2">Mafia Online</h1>
+    //welcome screen when not logged in
+    <div id="vue-div" class="lobby_main_content display:none">
+      <div class="welcome_main_content" v-if="!logged_in">
+        <div class="welcome_screen">
+          <h2 class="welcome_pt1">Welcome to</h2>
+          <h1 class="welcome_pt2">Mafia Online</h1>
 
-        <div class="welcome_btn_list">
-          <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='login')}}">Log In</a>
-          <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='register')}}">Sign Up</a>
+          <div class="welcome_btn_list">
+            <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='login')}}">Log In</a>
+            <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='register')}}">Sign Up</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    {{pass}}
-    <div id="vue-div" class="lobby_main_content display:none">
-
-        <div class="main_lobby" v-if="logged_in">
-          <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='logout')}}">Log Out</a>
-        </div>
-
-        <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
+      //main lobby when logged in
+      <div class="main_lobby_content" v-if="logged_in">
+        <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='logout')}}">Log Out</a>
+      </div>
     </div>
 </div>
 
