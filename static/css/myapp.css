@@ -110,6 +110,14 @@ div.main_lobby_content div.main_lobby_games{
     margin: 3.5% 2.5% 5.5% 1.45%;
     border: 1px solid #000;
     overflow: auto;
+    padding: 5px 15px;
+    font-size: 20px;
+}
+
+div.main_lobby_content div.main_lobby_games p.game_header{
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 div.main_lobby_content div.main_lobby_chat{
@@ -120,6 +128,7 @@ div.main_lobby_content div.main_lobby_chat{
     margin-botton: 5.5%;
     border: 1px solid #000;
     overflow: auto;
+    padding: 5px 10px;
 }
 
 div.main_lobby_content div.main_lobby_right_column{
@@ -129,10 +138,18 @@ div.main_lobby_content div.main_lobby_right_column{
     margin: 3.5% 2.5% 0% 2.5%;
 }
 
-div.online_users_list{
+div.main_lobby_content div.main_lobby_right_column div.online_users_list{
     height: 85%;
     border: 1px solid #000;
     overflow: auto;
+    padding: 5px 15px;
+    font-size: 20px;
+}
+
+div.main_lobby_content div.main_lobby_right_column div.online_users_list p.users_list_header{
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 div.main_lobby_content div.main_lobby_right_column div.main_lobby_buttons{

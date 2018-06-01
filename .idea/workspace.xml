@@ -23,8 +23,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/default/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+            <state relative-caret-position="133">
+              <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -32,7 +32,7 @@
       <file leaf-file-name="default_index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/default_index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
+            <state relative-caret-position="731">
               <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
             </state>
           </provider>
@@ -41,8 +41,8 @@
       <file leaf-file-name="myapp.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/css/myapp.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="145" column="14" lean-forward="true" selection-start-line="145" selection-start-column="14" selection-end-line="145" selection-end-column="14" />
+            <state relative-caret-position="38">
+              <caret line="111" column="19" lean-forward="true" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -82,8 +82,8 @@
       <find>reme</find>
       <find>btn</find>
       <find>page_</find>
-      <find>border</find>
       <find>auth.define_tables</find>
+      <find>border</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -98,8 +98,8 @@
         <option value="$PROJECT_DIR$/views/default/user.html" />
         <option value="$PROJECT_DIR$/static/js/default_index.js" />
         <option value="$PROJECT_DIR$/views/layout.html" />
-        <option value="$PROJECT_DIR$/views/default/index.html" />
         <option value="$PROJECT_DIR$/controllers/api.py" />
+        <option value="$PROJECT_DIR$/views/default/index.html" />
         <option value="$PROJECT_DIR$/static/css/myapp.css" />
       </list>
     </option>
@@ -546,13 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/default/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/db.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -562,15 +555,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/default_index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
+        <state relative-caret-position="731">
           <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/default/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/myapp.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="145" column="14" lean-forward="true" selection-start-line="145" selection-start-column="14" selection-end-line="145" selection-end-column="14" />
+        <state relative-caret-position="38">
+          <caret line="111" column="19" lean-forward="true" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
         </state>
       </provider>
     </entry>
