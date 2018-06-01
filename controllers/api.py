@@ -3,6 +3,7 @@
 
 def get_users():
     users = []
+
     for row in db(db.auth_user.id != auth.user.id).select():
         user = dict(
             username=row.username,

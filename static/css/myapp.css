@@ -50,10 +50,6 @@ div.welcome_btn_list {
   background-color: white;
 }
 
-body{
-  background-image: url(/static/images/welcome_background.jpg);
-}
-
 div.user_html_background{
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   height: 100%;
@@ -76,8 +72,6 @@ h2.user_html_header{
   margin-left: 0.2em;
   font-family: Verdana, Geneva, sans-serif;
 }
-
-
 
 div.user_html_body .control-label{
   font-size: 1.4em;
@@ -106,5 +100,54 @@ div.user_html_body .reset_pass_btn{
 }
 
 div.main_lobby_content{
-    height: 100%;
+    color: black;
+}
+
+div.main_lobby_content div.main_lobby_games{
+    float: left;
+    height: 80%;
+    width: 20%;
+    margin: 3.5% 2.5% 5.5% 1.45%;
+    border: 1px solid #000;
+    overflow: auto;
+}
+
+div.main_lobby_content div.main_lobby_chat{
+    float: left;
+    height: 80%;
+    width: 50%;
+    margin-top: 3.5%;
+    margin-botton: 5.5%;
+    border: 1px solid #000;
+    overflow: auto;
+}
+
+div.main_lobby_content div.main_lobby_right_column{
+    float: left;
+    height: 80%;
+    width: 20%;
+    margin: 3.5% 2.5% 0% 2.5%;
+}
+
+div.online_users_list{
+    height: 85%;
+    border: 1px solid #000;
+    overflow: auto;
+}
+
+div.main_lobby_content div.main_lobby_right_column div.main_lobby_buttons{
+    float: bottom;
+    padding-top: 12px;
+    padding-left: 5.5px;
+}
+
+.logout_btn, button {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  width: 10em;
+  padding:7px 70px 10px 70px;
+  margin:0 0.5em 0.5em 0.5em;
+  display:inline-block;
+  background-color:firebrick;
+  font-size:1.5em;
+  color:white
 }
