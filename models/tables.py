@@ -10,6 +10,7 @@
 def get_user_email():
     return auth.user.email if auth.user else None
 
+
 db.define_table('player',
                 Field('user_email', default=get_user_email()),
                 Field('bio', 'text'),
@@ -17,15 +18,14 @@ db.define_table('player',
                 Field('role'),
                 Field('is_dead', 'boolean', default=False),
                 Field('image', 'upload', uploadfield='image_file'),
-                Field('image_file', 'blob')
-)
-db.define_table('game',
-               Field('id'),
-               Field('turn'),
-               Field('phase'),
-               Field('num_players')
-)
+                Field('image_file', 'blob'))
 
+
+db.define_table('game',
+                Field('id'),
+                Field('turn'),
+                Field('phase'),
+                Field('num_players'))
 
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)

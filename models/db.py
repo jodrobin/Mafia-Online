@@ -66,7 +66,7 @@ service = Service()
 plugins = PluginManager()
 
 # create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False)
+auth.define_tables(username=True, signature=False)
 
 # configure email
 mail = auth.settings.mailer
@@ -82,6 +82,10 @@ auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 auth.settings.remember_me_form = False
 
+auth.messages.password_reset_button = 'Reset'
+
+db.auth_user.first_name.readable = db.auth_user.first_name.writable = False
+db.auth_user.last_name.readable = db.auth_user.last_name.writable = False
 # More API examples for controllers:
 #
 # >>> db.mytable.insert(myfield='value')
