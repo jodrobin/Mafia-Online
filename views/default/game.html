@@ -1,0 +1,23 @@
+{extend 'layout.html'}}
+
+{{block head}}
+
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+  var users_url = "{{=URL('api', 'get_users', user_signature=True)}}";
+  var images_url = "{{=URL('api', 'get_images', user_signature=True)}}";
+  var add_image_url = "{{=URL('api', 'add_image', user_signature=True)}}";
+</script>
+
+
+{{end}}
+
+<!-- HTML for the actual game screen; will consist of a header, a chat room and a list of players -->
+<!-- Dead players will have their names crossed out and will be unable to speak -->
+<!-- Header will say whether it is day or night, what turn it is, and how much time is left -->
+<div class="main_content">
+
+  <div id="vue-div" class="display:none">
+  </div>
+
+</div>
