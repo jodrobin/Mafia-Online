@@ -1,23 +1,37 @@
-{extend 'layout.html'}}
+{{extend 'layout.html'}}
 
 {{block head}}
-
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-  var users_url = "{{=URL('api', 'get_users', user_signature=True)}}";
-  var images_url = "{{=URL('api', 'get_images', user_signature=True)}}";
-  var add_image_url = "{{=URL('api', 'add_image', user_signature=True)}}";
+    var my_url = "{{=URL('api', 'my_method')}}";
 </script>
-
-
 {{end}}
 
-<!-- HTML for the actual game screen; will consist of a header, a chat room and a list of players -->
-<!-- Dead players will have their names crossed out and will be unable to speak -->
-<!-- Header will say whether it is day or night, what turn it is, and how much time is left -->
 <div class="main_content">
 
-  <div id="vue-div" class="display:none">
-  </div>
+    <div id="vue-div" class="display:none">
+        <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
+        <div class="game_screen container">
+          <div class="game_left_column">
+              <div class="game_timer">
+                  <div v-if="!has_game_ended">
+                      ${phase} ${turn}, ${timer_minutes} Minutes ${timer_seconds} Seconds Remaining
+                  </div>
+                  <div v-if="has_game_ended">
+                      Game Over
+                  </div>
+              </div>
+              <div class="game_chat">
+
+              </div>
+          </div>
+          <div class="players_list">
+              ${test}
+              <button v-on:click="test++"></button>
+          </div>
+        </div>
+    </div>
 
 </div>
+
+<script src="{{=URL('static', 'js/default_game.js')}}"></script>

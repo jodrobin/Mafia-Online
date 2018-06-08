@@ -40,6 +40,10 @@ def user():
     return dict(form=auth())
 
 
+def game():
+    return dict(message=T('Entering game screen'))
+
+
 @cache.action()
 def download():
     """

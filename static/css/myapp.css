@@ -125,7 +125,7 @@ div.main_lobby_content div.main_lobby_chat{
     height: 80%;
     width: 50%;
     margin-top: 3.5%;
-    margin-botton: 5.5%;
+    margin-bottom: 5.5%;
     border: 1px solid #000;
     overflow: auto;
     padding: 5px 10px;
@@ -135,7 +135,7 @@ div.main_lobby_content div.main_lobby_right_column{
     float: left;
     height: 80%;
     width: 20%;
-    margin: 3.5% 2.5% 0% 2.5%;
+    margin: 3.5% 2.5% 0 2.5%;
 }
 
 div.main_lobby_content div.main_lobby_right_column div.online_users_list{
@@ -167,4 +167,44 @@ div.main_lobby_content div.main_lobby_right_column div.main_lobby_buttons{
   background-color:firebrick;
   font-size:1.5em;
   color:white
+}
+
+div.game_screen {
+    height: 100%;
+    color: black;
+}
+
+div.game_left_column {
+    float: left;
+    width: 67.5%;
+    margin-top: 3.5%;
+    margin-left: 2.5%;
+}
+
+div.game_timer {
+    height: 5%;
+    width: 70%;
+
+    margin:0 auto;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+div.game_chat {
+    height: 73%;
+    margin-top: 1%;
+    border: 1px solid #000;
+    overflow: auto;
+
+}
+
+div.players_list {
+    float: right;
+    height: 80%;
+    width: 25%;
+    margin: 3.5% 2.5% 0 2.5%;
+    border: 1px solid #000;
+    overflow: auto;
+    padding: 5px 15px;
+    font-size: 20px;
 }
