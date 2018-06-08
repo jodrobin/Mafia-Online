@@ -44,6 +44,10 @@ def game():
     return dict(message=T('Entering game screen'))
 
 
+def chat():
+    return dict(message=T('Will need to differentiate rooms with key'))
+
+
 @cache.action()
 def download():
     """

@@ -17,7 +17,6 @@
           <h1 class="welcome_pt2">Mafia Online</h1>
 
           <div class="welcome_btn_list">
-            <a class="welcome_btn rounded" href="{{=URL('default', 'game')}}">Booze</a>
             <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='login')}}">Log In</a>
             <a class="welcome_btn rounded" href="{{=URL('default', 'user', args='register')}}">Sign Up</a>
           </div>
@@ -30,7 +29,7 @@
           <p class="game_header">Games</p>
         </div>
         <div class="main_lobby_chat">
-          chat room here
+          <iframe src="chat.html"></iframe>
         </div>
         <div class="main_lobby_right_column">
           <div class="online_users_list">
