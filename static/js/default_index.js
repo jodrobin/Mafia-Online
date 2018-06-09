@@ -36,13 +36,12 @@ var app = function() {
     };
 
     self.update_users = function () {
-        setInterval(function () {
+        var update = setInterval(function () {
+            if (!self.vue.logged_in){
+                clearInterval(update);
+            }
             $.getJSON(update_users_url, function (data) {
-                if (!self.vue.logged_in){
-                    clearInterval(self.update_users);
-                } else {
-                    self.vue.users = data.users;
-                }
+                self.vue.users = data.users;
             });
         }, 3000);
     };
@@ -60,9 +59,9 @@ var app = function() {
     };
 
     self.get_new_msgs = function() {
-        setInterval(function () {
+        var update = setInterval(function () {
             if (!self.vue.logged_in){
-                clearInterval(self.get_new_msgs);
+                clearInterval(update);
             }
             $.post(get_new_msgs_url,
                 {
