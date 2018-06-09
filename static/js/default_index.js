@@ -7,7 +7,7 @@ var app = function() {
     Vue.config.silent = false; // show all warnings
 
     // Extends an array
-    self.extend = function(a, b) {
+    self.extend = function (a, b) {
         for (var i = 0; i < b.length; i++) {
             a.push(b[i]);
         }
@@ -22,6 +22,35 @@ var app = function() {
         });
     };
 
+    self.send_msg = function () {
+        $.post(send_msg_url,
+            {
+                msg: self.vue.new_msg,
+                author: self.vue.user_username,
+                the_time: Date.now() + 500
+            },
+            function () {
+                console.log("help");
+                self.vue.new_msg = null;
+            });
+    };
+
+    self.get_new_msgs = setInterval(function () {
+        if (!self.vue.logged_in){
+            clearInterval(self.get_new_msgs);
+        }
+        $.post(get_new_msgs_url,
+            {
+                the_time: self.vue.prev_time
+            },
+            function (data) {
+                if (data.messages.length > 0) {
+                    self.vue.messages.push.apply(self.vue.messages, data.messages);
+                }
+                self.vue.prev_time = Date.now();
+            });
+    }, 2000);
+
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
@@ -32,13 +61,20 @@ var app = function() {
             user_id: null,
             user_username: null,
             logged_in: false,
+            messages: [],
+            new_msg: null,
+            prev_time: null,
         },
         methods: {
+            send_msg: self.send_msg,
         }
 
     });
 
+    self.vue.prev_time = Date.now();
     self.get_users();
+    self.get_new_msgs();
+
 
     $("#vue-div").show();
 

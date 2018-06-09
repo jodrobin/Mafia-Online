@@ -19,3 +19,29 @@ def get_users():
         user_id=auth.user.id,
         user_username=auth.user.username,
     ))
+
+
+def send_msg():
+    t_id = db.chat.insert(
+        msg=request.vars.msg,
+        author=request.vars.author,
+        the_time=request.vars.the_time,
+    )
+
+    return "ok"
+
+
+def get_new_msgs():
+    messages = []
+    logger.info(request.vars.the_time)
+    for row in db(db.chat.the_time >= request.vars.the_time).select():
+        message = dict(
+            msg=row.msg,
+            author=row.author,
+        )
+        messages.append(message)
+
+    logger.info(messages)
+    return response.json(dict(
+        messages=messages,
+    ))
