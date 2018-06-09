@@ -35,5 +35,11 @@ db.define_table('game',
                 Field('phase'),
                 Field('num_players'))
 
+
+db.define_table('chat',
+                Field('msg'),
+                Field('author'),
+                Field('the_time'))
+
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)

@@ -5,6 +5,9 @@
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
     var users_url = "{{=URL('api', 'get_users')}}";
+    var update_users_url = "{{=URL('api', 'update_users')}}";
+    var send_msg_url = "{{=URL('api', 'send_msg')}}";
+    var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
 </script>
 {{end}}
 
@@ -29,7 +32,14 @@
           <p class="game_header">Games</p>
         </div>
         <div class="main_lobby_chat">
-          <iframe src="chat.html"></iframe>
+            <div class="msg_list">
+                <div v-for="message in messages">
+                    ${message.author}: ${message.msg}
+                </div>
+            </div>
+            <div class="msg_input">
+                <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
+            </div>
         </div>
         <div class="main_lobby_right_column">
           <div class="online_users_list">
