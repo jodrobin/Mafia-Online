@@ -7,11 +7,15 @@
 # There is an implicit 'id integer autoincrement' field
 # Consult manual for more options, validators, etc.
 
+
 def get_user_email():
     return auth.user.email if auth.user else None
 
+
 def get_user_id():
     return auth.user.id if auth.user else None
+
+
 def get_name():
     return auth.user.first_name if auth.user else None
 
