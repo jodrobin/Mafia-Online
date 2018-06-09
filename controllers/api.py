@@ -33,6 +33,7 @@ def get_users():
     ))
 
 
+
 def get_ingame_players():
     players = []
 
@@ -54,6 +55,7 @@ def get_ingame_players():
 
 def swap_player_roles():
     return
+
 
 
 def update_users():
@@ -108,4 +110,6 @@ def get_new_msgs():
     return response.json(dict(
         messages=messages,
     ))
+
+
 
