@@ -10,15 +10,23 @@
 def get_user_email():
     return auth.user.email if auth.user else None
 
+def get_user_id():
+    return auth.user.id if auth.user else None
+def get_name():
+    return auth.user.first_name if auth.user else None
+
 
 db.define_table('player',
                 Field('user_email', default=get_user_email()),
+                Field('name', default = get_name()),
+                Field('user_id', default = get_user_id()),
                 Field('bio', 'text'),
                 Field('current_game'),
                 Field('role'),
                 Field('is_dead', 'boolean', default=False),
-                Field('image', 'upload', uploadfield='image_file'),
-                Field('image_file', 'blob'))
+                #Field('image', 'upload', uploadfield='image_file'),
+                #Field('image_file', 'blob')
+                )
 
 
 db.define_table('game',

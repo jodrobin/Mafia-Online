@@ -4,6 +4,7 @@
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
     var my_url = "{{=URL('api', 'my_method')}}";
+    var get_ingame_players_url = "{{=URL('api', 'get_ingame_players')}}"
 </script>
 {{end}}
 
@@ -26,6 +27,18 @@
               </div>
           </div>
           <div class="players_list">
+              <table class="fill" id="user_selector">
+                  <tbody>
+                    <tr class="center" v-on:click="get_new_images(user_id, true)" >
+                      <td>{{=auth.user.first_name}} {{=auth.user.last_name}}</td>
+                    </tr>
+                    <tr class="center" v-for="user in users">
+                      <!-- This row is you; code for getting your own images, and for setting self_page -->
+                      <td >${user.user_email} </td>
+                    </tr>
+                    <!-- Then, one row for each person. -->
+                  </tbody>
+                </table>
               ${test}
               <button v-on:click="test++"></button>
           </div>

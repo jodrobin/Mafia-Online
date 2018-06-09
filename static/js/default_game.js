@@ -41,6 +41,11 @@ var app = function() {
             }
         }, 1000 );
     };
+    self.initializeUsers = function() {
+        $.getJSON(get_ingame_players_url, function(data){
+        self.vue.users = data.players
+        })
+    };
 
     // Complete as needed.
     self.vue = new Vue({
@@ -62,6 +67,7 @@ var app = function() {
         }
 
     });
+    self.initializeUsers()
 
     self.getTimer();
 
