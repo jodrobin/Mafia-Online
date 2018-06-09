@@ -31,10 +31,14 @@
           <p class="game_header">Games</p>
         </div>
         <div class="main_lobby_chat">
-            <div v-for="message in messages" class="msg_list">
-                ${message.author}: ${message.msg}
+            <div class="msg_list">
+                <div v-for="message in messages">
+                    ${message.author}: ${message.msg}
+                </div>
             </div>
-            <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
+            <div class="msg_input">
+                <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
+            </div>
         </div>
         <div class="main_lobby_right_column">
           <div class="online_users_list">

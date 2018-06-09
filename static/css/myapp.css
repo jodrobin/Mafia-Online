@@ -194,8 +194,6 @@ div.game_chat {
     height: 73%;
     margin-top: 1%;
     border: 1px solid #000;
-    overflow: auto;
-
 }
 
 div.players_list {
@@ -209,7 +207,13 @@ div.players_list {
     font-size: 20px;
 }
 
-iframe {
-    height: 100%;
-    width: 100%;
+div.msg_list {
+    height: 90%;
+    float: top;
+    overflow: auto;
+}
+
+div.msg_input {
+    float: bottom;
+    border: 1px solid #000;
 }

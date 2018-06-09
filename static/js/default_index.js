@@ -6,6 +6,18 @@ var app = function() {
 
     Vue.config.silent = false; // show all warnings
 
+    Array.prototype.unique = function() {
+        var a = this.concat();
+        for(var i=0; i<a.length; ++i) {
+            for(var j=i+1; j<a.length; ++j) {
+                if(a[i] === a[j])
+                    a.splice(j--, 1);
+            }
+        }
+
+    return a;
+    };
+
     // Extends an array
     self.extend = function (a, b) {
         for (var i = 0; i < b.length; i++) {
@@ -41,11 +53,12 @@ var app = function() {
         }
         $.post(get_new_msgs_url,
             {
-                the_time: self.vue.prev_time
+                the_time: self.vue.login_time
             },
             function (data) {
-                if (data.messages.length > 0) {
-                    self.vue.messages.push.apply(self.vue.messages, data.messages);
+                if (data.messages.length > self.vue.messages.length) {
+                    self.vue.messages = data.messages;
+                     // self.vue.messages.push.apply(self.vue.messages, data.messages);
                 }
                 self.vue.prev_time = Date.now();
             });
@@ -63,7 +76,7 @@ var app = function() {
             logged_in: false,
             messages: [],
             new_msg: null,
-            prev_time: null,
+            login_time: null,
         },
         methods: {
             send_msg: self.send_msg,
@@ -71,7 +84,7 @@ var app = function() {
 
     });
 
-    self.vue.prev_time = Date.now();
+    self.vue.login_time = Date.now();
     self.get_users();
     self.get_new_msgs();
 
