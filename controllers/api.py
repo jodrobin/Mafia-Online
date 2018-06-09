@@ -19,3 +19,25 @@ def get_users():
         user_id=auth.user.id,
         user_username=auth.user.username,
     ))
+
+def get_ingame_players():
+    players = []
+
+    game_id = db(db.player.user_email == auth.user.email).select().first().current_game
+    for row in db(db.player.current_game == game_id).select():
+        player = dict(
+            current_game=row.current_game,
+            role=row.role,
+            user_email=row.user_email,
+            user_id=row.user_id,
+            is_dead=row.is_dead,
+            bio=row.bio,
+            name=row.name
+        )
+        players.append(player)
+    return response.json(dict(
+        players=players)
+    )
+
+def swap_player_roles():
+    return
