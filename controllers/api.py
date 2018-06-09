@@ -2,22 +2,62 @@
 
 
 def get_users():
+    import datetime
+    limit = request.now - datetime.timedelta(minutes=30)
+    query = db.auth_event.time_stamp > limit
+    query &= db.auth_event.description.contains('Logged-')
+    events = db(query).select(db.auth_event.user_id, db.auth_event.description,
+                              orderby=db.auth_event.user_id | db.auth_event.time_stamp)
     users = []
+    for i in range(len(events)):
+        last_event = ((i == len(events) - 1) or
+                      events[i + 1].user_id != events[i].user_id)
+        if last_event and 'Logged-in' in events[i].description:
+            users.append(events[i].user_id)
 
-    for row in db(db.auth_user.id != auth.user.id).select():
+    logged_in_users = []
+    for row in db(db.auth_user.id.belongs(users)).select():
         user = dict(
             username=row.username,
             id=row.id,
         )
-        users.append(user)
+        logged_in_users.append(user)
 
     logged_in = auth.user is not None
 
     return response.json(dict(
-        users=users,
+        users=logged_in_users,
         logged_in=logged_in,
         user_id=auth.user.id,
         user_username=auth.user.username,
+    ))
+
+
+def update_users():
+    import datetime
+    limit = request.now - datetime.timedelta(minutes=30)
+    query = db.auth_event.time_stamp > limit
+    query &= db.auth_event.description.contains('Logged-')
+    events = db(query).select(db.auth_event.user_id, db.auth_event.description,
+                              orderby=db.auth_event.user_id | db.auth_event.time_stamp)
+    users = []
+    for i in range(len(events)):
+        last_event = ((i == len(events) - 1) or
+                      events[i + 1].user_id != events[i].user_id)
+        if last_event and 'Logged-in' in events[i].description:
+            users.append(events[i].user_id)
+
+    logged_in_users = []
+    for row in db(db.auth_user.id.belongs(users)).select():
+        user = dict(
+            username=row.username,
+            id=row.id,
+        )
+        logged_in_users.append(user)
+
+    logger.info(logged_in_users)
+    return response.json(dict(
+        users=logged_in_users,
     ))
 
 

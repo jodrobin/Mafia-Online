@@ -31,7 +31,20 @@ var app = function() {
             self.vue.logged_in = data.logged_in;
             self.vue.user_id = data.user_id;
             self.vue.user_username = data.user_username;
+            self.update_users();
         });
+    };
+
+    self.update_users = function () {
+        setInterval(function () {
+            $.getJSON(update_users_url, function (data) {
+                if (!self.vue.logged_in){
+                    clearInterval(self.update_users);
+                } else {
+                    self.vue.users = data.users;
+                }
+            });
+        }, 3000);
     };
 
     self.send_msg = function () {
@@ -39,30 +52,31 @@ var app = function() {
             {
                 msg: self.vue.new_msg,
                 author: self.vue.user_username,
-                the_time: Date.now() + 500
+                the_time: Date.now()
             },
             function () {
-                console.log("help");
                 self.vue.new_msg = null;
             });
     };
 
-    self.get_new_msgs = setInterval(function () {
-        if (!self.vue.logged_in){
-            clearInterval(self.get_new_msgs);
-        }
-        $.post(get_new_msgs_url,
-            {
-                the_time: self.vue.login_time
-            },
-            function (data) {
-                if (data.messages.length > self.vue.messages.length) {
-                    self.vue.messages = data.messages;
-                     // self.vue.messages.push.apply(self.vue.messages, data.messages);
-                }
-                self.vue.prev_time = Date.now();
-            });
-    }, 2000);
+    self.get_new_msgs = function() {
+        setInterval(function () {
+            if (!self.vue.logged_in){
+                clearInterval(self.get_new_msgs);
+            }
+            $.post(get_new_msgs_url,
+                {
+                    the_time: self.vue.login_time
+                },
+                function (data) {
+                    if (data.messages.length > self.vue.messages.length) {
+                        self.vue.messages = data.messages;
+                        // self.vue.messages.push.apply(self.vue.messages, data.messages);
+                    }
+                    self.vue.prev_time = Date.now();
+                });
+        }, 2000);
+    };
 
     // Complete as needed.
     self.vue = new Vue({
