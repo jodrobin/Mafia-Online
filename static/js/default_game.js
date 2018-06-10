@@ -25,10 +25,15 @@ var app = function() {
                         self.vue.timer_minutes = 0;
                         self.vue.timer_seconds = 4;
                         if (self.vue.phase === 'Day') {
+                            self.vue.is_day = false;
                             self.vue.phase = 'Night';
+                            self.vue.start_time = Date.now();
                         } else {
+                            self.vue.start_time = Date.now();
                             self.vue.turn++;
                             self.vue.phase = 'Day';
+                            self.vue.is_day = true;
+
                         }
                     } else {
                         self.vue.has_game_ended = true;
@@ -95,6 +100,7 @@ var app = function() {
             game_id: null,
             turn: 0,
             phase: 'Day',
+            is_day: true,
             test: 0,
             has_game_ended: false,
             messages: [],

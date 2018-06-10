@@ -32,7 +32,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="msg_input">
+                  <div class="msg_input" v-if="is_day">
                       <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
                   </div>
               </div>
