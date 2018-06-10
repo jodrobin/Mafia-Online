@@ -32,9 +32,11 @@
           <p class="game_header">Games</p>
         </div>
         <div class="main_lobby_chat">
-            <div class="msg_list">
-                <div v-for="message in messages">
-                    ${message.author}: ${message.msg}
+            <div class="msg_list_container">
+                <div class="msg_list">
+                    <div v-for="message in messages">
+                        <div class="msgs">${message.author}: ${message.msg}</div>
+                    </div>
                 </div>
             </div>
             <div class="msg_input">

@@ -51,7 +51,8 @@ var app = function() {
             {
                 msg: self.vue.new_msg,
                 author: self.vue.user_username,
-                the_time: Date.now()
+                the_time: Date.now(),
+                chat_id: self.vue.chat_id
             },
             function () {
                 self.vue.new_msg = null;
@@ -65,14 +66,14 @@ var app = function() {
             }
             $.post(get_new_msgs_url,
                 {
-                    the_time: self.vue.login_time
+                    the_time: self.vue.login_time,
+                    chat_id: self.vue.chat_id
                 },
                 function (data) {
                     if (data.messages.length > self.vue.messages.length) {
                         self.vue.messages = data.messages;
                         // self.vue.messages.push.apply(self.vue.messages, data.messages);
                     }
-                    self.vue.prev_time = Date.now();
                 });
         }, 2000);
     };
@@ -84,6 +85,7 @@ var app = function() {
         unsafeDelimiters: ['!{', '}'],
         data: {
             users: [],
+            chat_id: -1,
             user_id: null,
             user_username: null,
             logged_in: false,

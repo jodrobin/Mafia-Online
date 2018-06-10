@@ -23,22 +23,22 @@
                   </div>
               </div>
               <div class="game_chat">
-
+                  <div class="msg_list_container">
+                      <div class="msg_list">
+                          <div v-for="message in messages">
+                              <div class="msgs">${message.author}: ${message.msg}</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="msg_input">
+                      <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
+                  </div>
               </div>
           </div>
           <div class="players_list">
-              <table class="fill" id="user_selector">
-                  <tbody>
-                    <tr class="center" v-on:click="get_new_images(user_id, true)" >
-                      <td>{{=auth.user.first_name}} {{=auth.user.last_name}}</td>
-                    </tr>
-                    <tr class="center" v-for="user in users">
-                      <!-- This row is you; code for getting your own images, and for setting self_page -->
-                      <td >${user.user_email} </td>
-                    </tr>
-                    <!-- Then, one row for each person. -->
-                  </tbody>
-                </table>
+              <div v-for="user in users">
+                  ${user.username} ${user.role}
+              </div>
               ${test}
               <button v-on:click="test++"></button>
           </div>

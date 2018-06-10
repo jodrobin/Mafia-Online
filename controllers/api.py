@@ -39,18 +39,20 @@ def get_ingame_players():
     game_id = db(db.player.user_email == auth.user.email).select().first().current_game
     for row in db(db.player.current_game == game_id).select():
         player = dict(
-            current_game=row.current_game,
             role=row.role,
             user_email=row.user_email,
             user_id=row.user_id,
             is_dead=row.is_dead,
             bio=row.bio,
-            name=row.name
+            username=row.username
         )
         players.append(player)
     return response.json(dict(
-        players=players)
-    )
+        players=players,
+        user_id=auth.user.id,
+        user_username=auth.user.username,
+        game_id=game_id,
+    ))
 
 
 def swap_player_roles():
@@ -86,11 +88,14 @@ def update_users():
 
 
 def send_msg():
+    logger.info(request.vars.id)
     t_id = db.chat.insert(
         msg=request.vars.msg,
         author=request.vars.author,
         the_time=request.vars.the_time,
+        chat_id=request.vars.chat_id,
     )
+    logger.info(t_id)
 
     return "ok"
 
@@ -98,7 +103,7 @@ def send_msg():
 def get_new_msgs():
     messages = []
     logger.info(request.vars.the_time)
-    for row in db(db.chat.the_time >= request.vars.the_time).select():
+    for row in db((db.chat.the_time >= request.vars.the_time) & (db.chat.chat_id == request.vars.chat_id)).select():
         message = dict(
             msg=row.msg,
             author=row.author,
