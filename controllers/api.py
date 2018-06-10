@@ -122,3 +122,12 @@ def add_game():
 	
     return "ok"
 
+def get_games(): 
+    games = []
+    for row in db().select(db.game.ALL):
+        g = dict(
+        game_name = row.game_name,
+        num_players = row.num_players)
+        games.append(g)
+		
+    return response.json(dict(games=games))

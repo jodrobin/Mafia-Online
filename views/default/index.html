@@ -9,6 +9,7 @@
     var send_msg_url = "{{=URL('api', 'send_msg')}}";
     var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
 	var add_game_url = "{{=URL('api', 'add_game')}}"; 
+	var get_games_url = "{{=URL('api', 'get_games')}}";
 </script>
 {{end}}
 
@@ -31,6 +32,9 @@
       <div class="main_lobby_content container" v-if="logged_in && !creating_game">
         <div class="main_lobby_games">
           <p class="game_header">Games</p>
+		  <div v-for="game in games">
+			${game.game_name}
+			</div>
         </div>
         <div class="main_lobby_chat">
             <div class="msg_list_container">

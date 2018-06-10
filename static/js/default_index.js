@@ -93,11 +93,23 @@ var app = function() {
                 },
                 function(data){
                     self.vue.creating_game = false;
-                    //self.get_games(); 
                 }
             );
 		
 	}; 
+	
+    self.get_games = function() {
+        var update = setInterval(function () {
+            if (!self.vue.logged_in){
+                clearInterval(update);
+            }
+            $.post(get_games_url,
+                function (data) {
+					self.vue.games = data.games;
+                    }
+		);}
+        , 2000);
+	};
 
     // Complete as needed.
     self.vue = new Vue({
@@ -122,6 +134,7 @@ var app = function() {
 			create_id: self.create_id,
 			cancel_create: self.cancel_create,
 			create_game: self.create_game,
+			get_games: self.get_games,
         }
 
     });
@@ -129,7 +142,7 @@ var app = function() {
     self.vue.login_time = Date.now();
     self.get_users();
     self.get_new_msgs();
-
+	self.get_games();
 
     $("#vue-div").show();
 
