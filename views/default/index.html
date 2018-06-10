@@ -8,6 +8,7 @@
     var update_users_url = "{{=URL('api', 'update_users')}}";
     var send_msg_url = "{{=URL('api', 'send_msg')}}";
     var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
+	var add_game_url = "{{=URL('api', 'add_game')}}"; 
 </script>
 {{end}}
 
@@ -27,7 +28,7 @@
       </div>
 
       <!-- main lobby when logged in -->
-      <div class="main_lobby_content container" v-if="logged_in">
+      <div class="main_lobby_content container" v-if="logged_in && !creating_game">
         <div class="main_lobby_games">
           <p class="game_header">Games</p>
         </div>
@@ -52,10 +53,19 @@
           </div>
           <div class="main_lobby_buttons">
             <a class="logout_btn rounded" href="{{=URL('default', 'user', args='logout')}}">Log Out</a>
+			<a class="logout_btn rounded" v-on:click="create_id" >Create Game</a>
           </div>
         </div>
 
       </div>
+	  <div class="creation_form" v-if="creating_game"> 
+		<p class="game_id"> Game ID: </p>
+		<input id="make_game" v-model="new_game"/>
+		<button v-on:click="create_game">Submit</button>
+		<button v-on:click="cancel_create">Cancel</button> 
+	  </div> 
+    </div>
+
     </div>
 </div>
 

@@ -115,5 +115,7 @@ def get_new_msgs():
         messages=messages,
     ))
 
-
+def add_game():
+    db.game.insert(id=request.vars.new_game)
+    return dict()
 

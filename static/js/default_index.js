@@ -77,6 +77,27 @@ var app = function() {
                 });
         }, 2000);
     };
+	
+    self.create_id = function () {
+        self.vue.creating_game = true;
+    };
+	
+	self.cancel_create = function() {
+		self.vue.creating_game = false; 
+	};
+	
+	self.create_game = function () {
+		$.post(add_game_url,
+                {
+                    new_game: self.vue.new_game
+                },
+                function(data){
+                    self.vue.creating_game = false;
+                    //self.get_games(); 
+                }
+            );
+		
+	}; 
 
     // Complete as needed.
     self.vue = new Vue({
@@ -92,9 +113,15 @@ var app = function() {
             messages: [],
             new_msg: null,
             login_time: null,
+			games: [], 
+			creating_game: false,
+			new_game: null,
         },
         methods: {
             send_msg: self.send_msg,
+			create_id: self.create_id,
+			cancel_create: self.cancel_create,
+			create_game: self.create_game,
         }
 
     });

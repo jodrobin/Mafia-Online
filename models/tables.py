@@ -33,9 +33,9 @@ db.define_table('player',
 
 db.define_table('game',
                 Field('id'),
-                Field('turn'),
-                Field('phase'),
-                Field('num_players'))
+                Field('turn', default=0),
+                Field('phase', default=0),
+                Field('num_players', default=1))
 
 
 db.define_table('chat',
