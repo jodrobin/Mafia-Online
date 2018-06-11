@@ -67,6 +67,10 @@ def swap_player_roles():
     (db(db.player.id == p2).update(role=request.vars.p1_role))
     return
 
+def cast_vote():
+    p1 = request.vars.p1
+    (db(db.player.id == p1).update(vote=request.vars.vote))
+
 
 def update_users():
     import datetime
