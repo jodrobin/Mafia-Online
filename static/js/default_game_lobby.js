@@ -36,6 +36,7 @@ var app = function() {
     };
 
     self.check_game = function () {
+        console.log(self.vue.game_id);
         var update = setInterval(function () {
         $.post(check_game_url,
             {
@@ -55,6 +56,7 @@ var app = function() {
             self.vue.users = data.players;
             self.vue.user_id = data.user_id;
             self.vue.game_id = data.game_id;
+            console.log("Data " + data.game_id);
         })
     };
 

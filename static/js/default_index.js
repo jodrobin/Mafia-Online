@@ -92,6 +92,7 @@ var app = function() {
 	};
 	
 	self.create_game = function () {
+	    console.log("it is " + self.vue.user_id);
 		$.post(add_game_url,
             {
                 new_game: self.vue.new_game,
@@ -126,6 +127,7 @@ var app = function() {
 	};
 
     self.join_game = function (game_id) {
+        console.log(game_id);
         $.post(join_game_url,
             {
                 game_id: game_id,

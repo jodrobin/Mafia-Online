@@ -76,7 +76,7 @@ def cast_vote():
 def update_player_info():
     row = db(db.player.user_email == auth.user.email).select().first()
     if row is None:
-        id = db.player.insert()
+        id = db.player.insert(current_game=0)
     else:
         row.update_record(
             current_game=0
@@ -137,10 +137,13 @@ def get_new_msgs():
 
 
 def add_game():
+    logger.info("hello there folks")
     t_id = db.game.insert(game_name=request.vars.new_game)
-
-    row = db(db.player.id == request.vars.id).select().first()
+    logger.info(t_id)
+    row = db(db.player.user_id == request.vars.id).select().first()
+    logger.info(row)
     if row is not None:
+        logger.info("update occurs")
         row.update_record(
             current_game=t_id,
         )
@@ -150,10 +153,9 @@ def add_game():
 
 def get_games(): 
     games = []
-    logger.info("get the game")
+
     for row in db((db.game.has_ended == 0) & (db.game.has_started == 0)).select(db.game.ALL):
-        logger.info("hi there")
-        logger.info(db.game.has_started)
+        logger.info(row.has_started)
         g = dict(
             game_name=row.game_name,
             num_players=row.num_players,
@@ -185,7 +187,7 @@ def cancel_game():
 
 
 def leave_game():
-    row = db(db.player.id == request.vars.id).select().first()
+    row = db(db.player.user_id == request.vars.id).select().first()
     if row is not None:
         game_id = row.current_game
         row.update_record(
@@ -215,7 +217,7 @@ def check_game():
 
 
 def join_game():
-    player_row = db(db.player.id == request.vars.user_id).select().first()
+    player_row = db(db.player.user_id == request.vars.user_id).select().first()
     if player_row is not None:
         player_row.update_record(
             current_game=request.vars.game_id
