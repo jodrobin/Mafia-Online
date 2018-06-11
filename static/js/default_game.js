@@ -109,6 +109,14 @@ var app = function() {
         {
             self.robber(player, target)
         }
+    if (player.initial_role == "Troublemaker")
+        {
+            self.troublemaker(player, target)
+        }
+    if (player.initial_role == "Seer")
+        {
+            self.seer(player, target)
+        }
     };
 
     self.robber = function(player, target) {
@@ -124,6 +132,33 @@ var app = function() {
         })
 
 
+    };
+    self.troublemaker = function(player, target) {
+        if (self.troublemaker_target1 == null && target.user_id != player.user_id)
+        {
+            self.troublemaker_target1 = target
+        }
+        else if (self.troublemaker_target1.user_id != target.user_id)
+        {
+            $.post(swap_players_url,
+        {
+            p1: self.troublemaker_target1.user_id,
+            p2: target.user_id,
+            p1_role: self.troublemaker_target1.role,
+            p2_role: target.role,
+        },
+        function(){
+            self.initializeUsers()
+            self.troublemaker_target1 = null
+        })
+        }
+    };
+
+    self.seer = function(player, target) {
+        if (target.user_id != player.user_id)
+        {
+            console.log("Seer sees: " + target.role)
+        }
     }
 
 
@@ -148,6 +183,7 @@ var app = function() {
             messages: [],
             new_msg: null,
             start_time: null,
+            troublemaker_target1: null
         },
         methods: {
             send_msg: self.send_msg,
