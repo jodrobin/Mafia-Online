@@ -1,7 +1,6 @@
 {{extend 'layout.html'}}
 
 {{block head}}
-<link href="{{=URL('static','css/stupid.css')}}" rel="stylesheet" type="text/css"/>
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
     var users_url = "{{=URL('api', 'get_users')}}";
@@ -33,7 +32,7 @@
         <div class="main_lobby_games">
           <p class="game_header">Games</p>
 		  <div v-for="game in games">
-			${game.game_name}
+			<a> ${game.game_name}</a> 
 			</div>
         </div>
         <div class="main_lobby_chat">

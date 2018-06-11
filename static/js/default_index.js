@@ -95,6 +95,8 @@ var app = function() {
                     self.vue.creating_game = false;
                 }
             );
+			
+		window.location.href = 'game_lobby'; 
 		
 	}; 
 	

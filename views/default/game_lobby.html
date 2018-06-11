@@ -1,0 +1,43 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+<link href="{{=URL('static','css/stupid.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+
+<div class="main_content">
+        <div class="game_lobby_roles">
+          <p class="roles_header">Roles</p>
+		  
+        </div>
+
+        <div class="game_lobby_right_column">
+          <div class="game_users_list">
+              <p class="game_users_list_header">Players</p>
+           <!--   <div v-for="user in users">
+                  ${user.username}
+              </div> -->
+          </div>
+          <div class="game_lobby_buttons">
+			<!-- Should only be visible to host --> 
+			<a class="logout_btn rounded" v-on:click="start_game" >Start Game</a>
+			<a class="logout_btn rounded" v-on:click="cancel_game" >Cancel Game</a>
+			<!-- Should only be visible to non-hosts --> 
+			<a class="logout_btn rounded" v-on:click="leave_game" >Leave Game</a>
+          </div>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>
