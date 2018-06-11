@@ -157,10 +157,11 @@ def add_game():
 
 def get_games(): 
     games = []
-    for row in db().select(db.game.ALL):
+    for row in db(db.game.has_ended == 0).select(db.game.ALL):
         g = dict(
             game_name=row.game_name,
-            num_players=row.num_players
+            num_players=row.num_players,
+            id=row.id,
         )
         games.append(g)
 
@@ -190,9 +191,21 @@ def cancel_game():
 def leave_game():
     row = db(db.player.id == request.vars.id).select().first()
     if row is not None:
+        game_id = row.current_game
         row.update_record(
             current_game=0
         )
+        game_row = db(db.game.id == game_id).select().first()
+        if game_row.num_players == 1:
+            game_row.update_record(
+                has_ended=True
+            )
+        else:
+            logger.info(game_row.num_players)
+            new_num_players = game_row.num_players - 1
+            game_row.update_record(
+                num_players=new_num_players
+            )
 
     return "ok"
 
@@ -204,3 +217,26 @@ def check_game():
         has_started=row.has_started,
         has_ended=row.has_ended
     ))
+
+
+def join_game():
+    logger.info("joining game")
+    logger.info(request.vars.user_id)
+    logger.info(request.vars.game_id)
+    player_row = db(db.player.id == request.vars.user_id).select().first()
+    if player_row is not None:
+        logger.info("found user")
+        player_row.update_record(
+            current_game=request.vars.game_id
+        )
+
+    game_row = db(db.game.id == request.vars.game_id).select().first()
+    if game_row is not None:
+        logger.info("found game")
+        new_num_players = game_row.num_players + 1
+        logger.info(new_num_players)
+        game_row.update_record(
+            num_players=new_num_players
+        )
+
+    return "ok"

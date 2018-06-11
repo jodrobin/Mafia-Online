@@ -34,7 +34,7 @@ db.define_table('player',
 
 db.define_table('game',
                 Field('game_name'),
-                Field('num_players', default=1),
+                Field('num_players', 'integer', default=1),
                 Field('has_started', 'boolean', default=False),
                 Field('has_ended', 'boolean', default=False))
 

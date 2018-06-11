@@ -93,14 +93,14 @@ var app = function() {
 	
 	self.create_game = function () {
 		$.post(add_game_url,
-                {
-                    new_game: self.vue.new_game,
-                    id: self.vue.user_id,
-                },
-                function(){
-                    window.location.href = 'game_lobby';
-                }
-            );
+            {
+                new_game: self.vue.new_game,
+                id: self.vue.user_id,
+            },
+            function(){
+		        window.location.href = 'game_lobby';
+		    }
+		);
 		
 	};
 	
@@ -123,6 +123,19 @@ var app = function() {
                 }
             );
         }, 2000);
+	};
+
+    self.join_game = function (game_id) {
+        $.post(join_game_url,
+            {
+                game_id: game_id,
+                user_id: self.vue.user_id,
+            },
+            function(){
+		        window.location.href = 'game_lobby';
+		    }
+		);
+
 	};
 
     // Complete as needed.
@@ -149,6 +162,7 @@ var app = function() {
 			cancel_create: self.cancel_create,
 			create_game: self.create_game,
 			get_games: self.get_games,
+            join_game: self.join_game,
         }
 
     });

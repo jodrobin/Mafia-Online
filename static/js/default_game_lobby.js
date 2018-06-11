@@ -47,7 +47,7 @@ var app = function() {
                 } else if (data.has_ended === true) {
                     window.location.href = 'index';
                 }
-            })}, 2000);
+            })}, 1500);
     };
 
     self.initializeUsers = function() {
