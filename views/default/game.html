@@ -6,7 +6,9 @@
     var my_url = "{{=URL('api', 'my_method')}}";
     var get_ingame_players_url = "{{=URL('api', 'get_ingame_players')}}";
     var send_msg_url = "{{=URL('api', 'send_msg')}}";
+    var swap_players_url = "{{=URL('api', 'swap_player_roles')}}";
     var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
+    var user_id = "{{=auth.user.id}}";
 </script>
 {{end}}
 
@@ -38,9 +40,16 @@
               </div>
           </div>
           <div class="players_list">
-              <div v-for="user in users">
-                  ${user.username} ${user.role}
-              </div>
+                  <table class="fill" id="user_selector">
+                      <tbody>
+                        <tr class="center" v-for="user in users" v-on:click="perform_action(user_id, user.user_id)">
+
+                            <td>${user.username} ${user.role}</td>
+                        </tr>
+
+                      </tbody>
+                  </table>
+
               ${test}
               <button v-on:click="test++"></button>
           </div>

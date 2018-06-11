@@ -40,8 +40,9 @@ def get_ingame_players():
     for row in db(db.player.current_game == game_id).select():
         player = dict(
             role=row.role,
+            initial_role = row.initialrole,
             user_email=row.user_email,
-            user_id=row.user_id,
+            user_id=row.id,
             is_dead=row.is_dead,
             bio=row.bio,
             username=row.username
@@ -56,6 +57,14 @@ def get_ingame_players():
 
 
 def swap_player_roles():
+    print request.vars.p1
+    print request.vars.p2
+    print request.vars.p2_role
+    print request.vars.p1_role
+    p1 = request.vars.p1
+    p2 = request.vars.p2
+    (db(db.player.id == p1).update(role=request.vars.p2_role))
+    (db(db.player.id == p2).update(role=request.vars.p1_role))
     return
 
 
