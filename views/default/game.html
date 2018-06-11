@@ -6,6 +6,7 @@
     var my_url = "{{=URL('api', 'my_method')}}";
     var get_ingame_players_url = "{{=URL('api', 'get_ingame_players')}}";
     var send_msg_url = "{{=URL('api', 'send_msg')}}";
+    var cast_vote_url = "{{=URL('api', 'cast_vote')}}";
     var swap_players_url = "{{=URL('api', 'swap_player_roles')}}";
     var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
 </script>
@@ -19,7 +20,7 @@
           <div class="game_left_column">
               <div class="game_timer">
                   <div v-if="!has_game_ended">
-                      ${phase} ${turn}, ${timer_minutes} Minutes ${timer_seconds} Seconds Remaining
+                      ${phases[phase_count]} ${turn}, ${timer_minutes} Minutes ${timer_seconds} Seconds Remaining
                   </div>
                   <div v-if="has_game_ended">
                       Game Over
@@ -46,8 +47,8 @@
                       </tr>
                   </tbody>
               </table>
-
           </div>
+
         </div>
     </div>
 

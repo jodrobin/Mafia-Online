@@ -42,7 +42,7 @@ def get_ingame_players():
             role=row.role,
             initial_role = row.initial_role,
             user_email=row.user_email,
-            user_id=row.id,
+            user_id=row.user_id,
             is_dead=row.is_dead,
             bio=row.bio,
             username=row.username
@@ -67,6 +67,10 @@ def swap_player_roles():
     (db(db.player.id == p1).update(role=request.vars.p2_role))
     (db(db.player.id == p2).update(role=request.vars.p1_role))
     return
+
+def cast_vote():
+    p1 = request.vars.p1
+    (db(db.player.id == p1).update(vote=request.vars.vote))
 
 
 def update_player_info():
