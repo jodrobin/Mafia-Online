@@ -42,7 +42,7 @@ def get_ingame_players():
             role=row.role,
             initial_role = row.initialrole,
             user_email=row.user_email,
-            user_id=row.id,
+            user_id=row.user_id,
             is_dead=row.is_dead,
             bio=row.bio,
             username=row.username

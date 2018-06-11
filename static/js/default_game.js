@@ -15,26 +15,22 @@ var app = function() {
 
     self.getTimer = function(){
         self.vue.timer_minutes = 0;
-        self.vue.timer_seconds = 4;
+        self.vue.timer_seconds = 10;
 
         var func = setInterval( function() {
             self.vue.timer_seconds--;
+
             if(self.vue.timer_seconds <= 0) {
                 if (self.vue.timer_minutes <= 0){
-                    if (self.vue.turn === 0) {
+                    if (self.vue.phase_count < self.vue.phase_max - 1) {
                         self.vue.timer_minutes = 0;
-                        self.vue.timer_seconds = 4;
-                        if (self.vue.phase === 'Day') {
-                            self.vue.is_day = false;
-                            self.vue.phase = 'Night';
-                            self.vue.start_time = Date.now();
-                        } else {
-                            self.vue.start_time = Date.now();
-                            self.vue.turn++;
-                            self.vue.phase = 'Day';
-                            self.vue.is_day = true;
-
+                        self.vue.timer_seconds = 15;
+                        if (self.vue.phase_count > 3)
+                        {
+                            self.vue.timer_minutes = 2;
                         }
+                        self.vue.phase_count += 1;
+
                     } else {
                         self.vue.has_game_ended = true;
                         clearInterval(func);
@@ -105,15 +101,15 @@ var app = function() {
         }
     console.log(player.username)
     console.log(target.username)
-    if (player.initial_role == "Robber")
+    if (player.initial_role == "Robber" && self.vue.phases[self.vue.phase_count] == "Robber")
         {
             self.robber(player, target)
         }
-    if (player.initial_role == "Troublemaker")
+    if (player.initial_role == "Troublemaker" && self.vue.phases[self.vue.phase_count] == "Troublemaker")
         {
             self.troublemaker(player, target)
         }
-    if (player.initial_role == "Seer")
+    if (player.initial_role == "Seer" && self.vue.phases[self.vue.phase_count] == "Seer")
         {
             self.seer(player, target)
         }
@@ -183,7 +179,12 @@ var app = function() {
             messages: [],
             new_msg: null,
             start_time: null,
-            troublemaker_target1: null
+            troublemaker_target1: null,
+            phases: ["Initial", "Seer","Robber","Troublemaker","Discussion","Voting", "End" ],
+            phase_count: 0,
+            phase_max: 0,
+            player_log: "",
+
         },
         methods: {
             send_msg: self.send_msg,
@@ -192,6 +193,7 @@ var app = function() {
 
     });
 
+    self.vue.phase_max = self.vue.phases.length
     self.vue.start_time = Date.now();
     self.initializeUsers();
 
