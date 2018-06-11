@@ -113,7 +113,7 @@ def update_users():
 
 
 def send_msg():
-    logger.info(request.vars.id)
+    logger.info(request.vars.chat_id)
     t_id = db.chat.insert(
         msg=request.vars.msg,
         author=request.vars.author,

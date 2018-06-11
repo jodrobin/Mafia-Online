@@ -15,15 +15,17 @@ var app = function() {
 
     self.getTimer = function(){
         self.vue.timer_minutes = 0;
-        self.vue.timer_seconds = 4;
+        self.vue.timer_seconds = 15;
 
         var func = setInterval( function() {
             self.vue.timer_seconds--;
+            self.vue.chat_timer--;
             if(self.vue.timer_seconds <= 0) {
                 if (self.vue.timer_minutes <= 0){
                     if (self.vue.turn === 0) {
                         self.vue.timer_minutes = 0;
-                        self.vue.timer_seconds = 4;
+                        self.vue.timer_seconds = 10;
+                        self.vue.messages = [];
                         if (self.vue.phase === 'Day') {
                             self.vue.is_day = false;
                             self.vue.phase = 'Night';
@@ -43,6 +45,10 @@ var app = function() {
                     self.vue.timer_minutes--;
                     self.vue.timer_seconds = 60;
                 }
+            }
+            if (self.vue.chat_timer === 0){
+                self.vue.chat_timer = 2;
+                self.get_new_msgs();
             }
         }, 1000 );
     };
@@ -70,21 +76,17 @@ var app = function() {
     };
 
     self.get_new_msgs = function() {
-        var update = setInterval(function () {
-            if (!self.vue.logged_in){
-                clearInterval(update);
-            }
-            $.post(get_new_msgs_url,
-                {
-                    the_time: self.vue.start_time,
-                    chat_id: self.vue.game_id
-                },
-                function (data) {
-                    if (data.messages.length > self.vue.messages.length) {
-                        self.vue.messages = data.messages;
-                    }
-                });
-        }, 2000);
+
+        $.post(get_new_msgs_url,
+            {
+                the_time: self.vue.start_time,
+                chat_id: self.vue.game_id
+            },
+            function (data) {
+                if (data.messages.length > self.vue.messages.length) {
+                    self.vue.messages = data.messages;
+                }
+            });
     };
 
     self.perform_action = function(playerID, targetID){
@@ -179,7 +181,7 @@ var app = function() {
             turn: 0,
             phase: 'Day',
             is_day: true,
-            test: 0,
+            chat_timer: 2,
             has_game_ended: false,
             messages: [],
             new_msg: null,
