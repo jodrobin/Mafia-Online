@@ -9,9 +9,6 @@
     var cast_vote_url = "{{=URL('api', 'cast_vote')}}";
     var swap_players_url = "{{=URL('api', 'swap_player_roles')}}";
     var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
-  {{if auth.user is not None:}}
-  var user_id = "{{=auth.user.id}}";
-  {{pass}}
 </script>
 {{end}}
 
@@ -50,11 +47,7 @@
                       </tr>
                   </tbody>
               </table>
-              <div>
-                <pre>${player_log}</pre>
-            </div>
           </div>
-
 
         </div>
     </div>

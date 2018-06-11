@@ -137,15 +137,14 @@ def get_new_msgs():
 
 
 def add_game():
-    logger.info("hello there folks")
     t_id = db.game.insert(game_name=request.vars.new_game)
     logger.info(t_id)
     row = db(db.player.user_id == request.vars.id).select().first()
     logger.info(row)
     if row is not None:
-        logger.info("update occurs")
         row.update_record(
             current_game=t_id,
+            leader=True,
         )
 
     return "ok"
