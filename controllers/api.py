@@ -35,12 +35,12 @@ def get_users():
 
 def get_ingame_players():
     players = []
-
     game_id = db(db.player.user_email == auth.user.email).select().first().current_game
+
     for row in db(db.player.current_game == game_id).select():
         player = dict(
             role=row.role,
-            initial_role = row.initialrole,
+            initial_role = row.initial_role,
             user_email=row.user_email,
             user_id=row.user_id,
             is_dead=row.is_dead,
@@ -48,6 +48,7 @@ def get_ingame_players():
             username=row.username
         )
         players.append(player)
+
     return response.json(dict(
         players=players,
         user_id=auth.user.id,
@@ -72,6 +73,17 @@ def cast_vote():
     (db(db.player.id == p1).update(vote=request.vars.vote))
 
 
+def update_player_info():
+    row = db(db.player.user_email == auth.user.email).select().first()
+    if row is None:
+        id = db.player.insert()
+    else:
+        row.update_record(
+            current_game=0
+        )
+    return "ok"
+
+
 def update_users():
     import datetime
     limit = request.now - datetime.timedelta(minutes=30)
@@ -94,28 +106,24 @@ def update_users():
         )
         logged_in_users.append(user)
 
-    logger.info(logged_in_users)
     return response.json(dict(
         users=logged_in_users,
     ))
 
 
 def send_msg():
-    logger.info(request.vars.id)
     t_id = db.chat.insert(
         msg=request.vars.msg,
         author=request.vars.author,
         the_time=request.vars.the_time,
         chat_id=request.vars.chat_id,
     )
-    logger.info(t_id)
 
     return "ok"
 
 
 def get_new_msgs():
     messages = []
-    logger.info(request.vars.the_time)
     for row in db((db.chat.the_time >= request.vars.the_time) & (db.chat.chat_id == request.vars.chat_id)).select():
         message = dict(
             msg=row.msg,
@@ -123,24 +131,101 @@ def get_new_msgs():
         )
         messages.append(message)
 
-    logger.info(messages)
     return response.json(dict(
         messages=messages,
     ))
 
+
 def add_game():
-    logger.info(request.vars.new_game)
     t_id = db.game.insert(game_name=request.vars.new_game)
-    logger.info(t_id)
-	
+
+    row = db(db.player.id == request.vars.id).select().first()
+    if row is not None:
+        row.update_record(
+            current_game=t_id,
+        )
+
     return "ok"
+
 
 def get_games(): 
     games = []
-    for row in db().select(db.game.ALL):
+    logger.info("get the game")
+    for row in db((db.game.has_ended == 0) & (db.game.has_started == 0)).select(db.game.ALL):
+        logger.info("hi there")
+        logger.info(db.game.has_started)
         g = dict(
-        game_name = row.game_name,
-        num_players = row.num_players)
+            game_name=row.game_name,
+            num_players=row.num_players,
+            id=row.id,
+        )
         games.append(g)
-		
+
     return response.json(dict(games=games))
+
+
+def start_game():
+    row = db(db.game.id == request.vars.id).select().first()
+    if row is not None:
+        row.update_record(
+            has_started=True
+        )
+
+    return "ok"
+
+
+def cancel_game():
+    row = db(db.game.id == request.vars.id).select().first()
+    if row is not None:
+        row.update_record(
+            has_ended=True
+        )
+
+    return "ok"
+
+
+def leave_game():
+    row = db(db.player.id == request.vars.id).select().first()
+    if row is not None:
+        game_id = row.current_game
+        row.update_record(
+            current_game=0
+        )
+        game_row = db(db.game.id == game_id).select().first()
+        if game_row.num_players == 1:
+            game_row.update_record(
+                has_ended=True
+            )
+        else:
+            new_num_players = game_row.num_players - 1
+            game_row.update_record(
+                num_players=new_num_players
+            )
+
+    return "ok"
+
+
+def check_game():
+    row = db(db.game.id == request.vars.id).select().first()
+
+    return response.json(dict(
+        has_started=row.has_started,
+        has_ended=row.has_ended
+    ))
+
+
+def join_game():
+    player_row = db(db.player.id == request.vars.user_id).select().first()
+    if player_row is not None:
+        player_row.update_record(
+            current_game=request.vars.game_id
+        )
+
+    game_row = db(db.game.id == request.vars.game_id).select().first()
+    if game_row is not None:
+        new_num_players = game_row.num_players + 1
+        game_row.update_record(
+            num_players=new_num_players
+        )
+
+    return "ok"

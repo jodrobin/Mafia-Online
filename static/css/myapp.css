@@ -100,6 +100,7 @@ div.user_html_body .reset_pass_btn{
 }
 
 div.main_lobby_content{
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   color: white;
   height: 100%;
   background: url('../images/main_lobby_bg.jpg') no-repeat center center fixed;
@@ -145,7 +146,7 @@ div.main_lobby_content div.main_lobby_right_column{
 }
 
 div.main_lobby_content div.main_lobby_right_column div.online_users_list{
-    height: 85%;
+    height: 82%;
     border: 1px solid #000;
     overflow: auto;
     padding: 5px 15px;
@@ -167,7 +168,7 @@ div.main_lobby_content div.main_lobby_right_column div.main_lobby_buttons{
 .logout_btn, button {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   width: 10em;
-  padding:7px 70px 10px 70px;
+  text-align: center;
   margin:0 0.5em 0.5em 0.5em;
   display:inline-block;
   background-color:firebrick;
@@ -177,6 +178,7 @@ div.main_lobby_content div.main_lobby_right_column div.main_lobby_buttons{
 
 div.game_screen {
     height: 100%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     color: white;
     background: url('../images/game_bg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -198,8 +200,8 @@ div.game_timer {
     height: 5%;
     width: 70%;
     margin:0 auto;
-    border: 1px solid #000;
     text-align: center;
+    font-size: 25px;
 }
 
 div.game_chat {
@@ -237,5 +239,14 @@ div.players_list {
 div.msg_input {
     float: bottom;
     border: 1px solid #000;
-    padding-right: 10px;
+
+}
+
+.game_lobby_screen {
+    color: black;
+    height: 100%;
+}
+
+tr {
+    color: white;
 }

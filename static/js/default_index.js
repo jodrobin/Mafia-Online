@@ -31,8 +31,13 @@ var app = function() {
             self.vue.logged_in = data.logged_in;
             self.vue.user_id = data.user_id;
             self.vue.user_username = data.user_username;
+            self.update_player_info();
             self.update_users();
         });
+    };
+
+    self.update_player_info = function () {
+        $.post(update_player_info_url);
     };
 
     self.update_users = function () {
@@ -88,19 +93,26 @@ var app = function() {
 	
 	self.create_game = function () {
 		$.post(add_game_url,
-                {
-                    new_game: self.vue.new_game
-                },
-                function(data){
-                    self.vue.creating_game = false;
-                }
-            );
-			
-		window.location.href = 'game_lobby'; 
+            {
+                new_game: self.vue.new_game,
+                id: self.vue.user_id,
+            },
+            function(){
+		        window.location.href = 'game_lobby';
+		    }
+		);
 		
-	}; 
+	};
 	
     self.get_games = function() {
+        setTimeout(function () {
+            $.post(get_games_url,
+                function (data) {
+					self.vue.games = data.games;
+                }
+            );
+        }, 100);
+
         var update = setInterval(function () {
             if (!self.vue.logged_in){
                 clearInterval(update);
@@ -108,9 +120,22 @@ var app = function() {
             $.post(get_games_url,
                 function (data) {
 					self.vue.games = data.games;
-                    }
-		);}
-        , 2000);
+                }
+            );
+        }, 2000);
+	};
+
+    self.join_game = function (game_id) {
+        $.post(join_game_url,
+            {
+                game_id: game_id,
+                user_id: self.vue.user_id,
+            },
+            function(){
+		        window.location.href = 'game_lobby';
+		    }
+		);
+
 	};
 
     // Complete as needed.
@@ -137,6 +162,7 @@ var app = function() {
 			cancel_create: self.cancel_create,
 			create_game: self.create_game,
 			get_games: self.get_games,
+            join_game: self.join_game,
         }
 
     });

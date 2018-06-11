@@ -19,6 +19,7 @@ var app = function() {
 
         var func = setInterval( function() {
             self.vue.timer_seconds--;
+            self.vue.chat_timer--;
 
             if(self.vue.timer_seconds <= 0) {
                 if (self.vue.timer_minutes <= 0){
@@ -48,6 +49,10 @@ var app = function() {
                     self.vue.timer_minutes--;
                     self.vue.timer_seconds = 60;
                 }
+            }
+            if (self.vue.chat_timer === 0){
+                self.vue.chat_timer = 2;
+                self.get_new_msgs();
             }
         }, 1000 );
     };
@@ -96,21 +101,17 @@ var app = function() {
     };
 
     self.get_new_msgs = function() {
-        var update = setInterval(function () {
-            if (!self.vue.logged_in){
-                clearInterval(update);
-            }
-            $.post(get_new_msgs_url,
-                {
-                    the_time: self.vue.start_time,
-                    chat_id: self.vue.game_id
-                },
-                function (data) {
-                    if (data.messages.length > self.vue.messages.length) {
-                        self.vue.messages = data.messages;
-                    }
-                });
-        }, 2000);
+
+        $.post(get_new_msgs_url,
+            {
+                the_time: self.vue.start_time,
+                chat_id: self.vue.game_id
+            },
+            function (data) {
+                if (data.messages.length > self.vue.messages.length) {
+                    self.vue.messages = data.messages;
+                }
+            });
     };
 
     self.perform_action = function(playerID, targetID){
@@ -118,6 +119,7 @@ var app = function() {
         console.log(targetID);
         var player = null;
         var target = null;
+
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
 
@@ -166,17 +168,17 @@ var app = function() {
             p2_role: target.role,
         },
         function(){
-            self.initializeUsers()
+            self.initializeUsers();
         })
 
 
     };
     self.troublemaker = function(player, target) {
-        if (self.troublemaker_target1 == null && target.user_id != player.user_id)
+        if (self.troublemaker_target1 == null && target.user_id !== player.user_id)
         {
-            self.troublemaker_target1 = target
+            self.troublemaker_target1 = target;
         }
-        else if (self.troublemaker_target1.user_id != target.user_id)
+        else if (self.troublemaker_target1.user_id !== target.user_id)
         {
             $.post(swap_players_url,
         {
@@ -186,18 +188,19 @@ var app = function() {
             p2_role: target.role,
         },
         function(){
-            self.initializeUsers()
-            self.troublemaker_target1 = null
+            self.initializeUsers();
+            self.troublemaker_target1 = null;
         })
         }
     };
 
     self.seer = function(player, target) {
-        if (target.user_id != player.user_id)
+        if (target.user_id !== player.user_id)
         {
             self.vue.player_log += "The seer sees a " + target.role + "\n"
+
         }
-    }
+    };
 
 
 
@@ -216,7 +219,7 @@ var app = function() {
             turn: 0,
             phase: 'Day',
             is_day: true,
-            test: 0,
+            chat_timer: 2,
             has_game_ended: false,
             messages: [],
             new_msg: null,

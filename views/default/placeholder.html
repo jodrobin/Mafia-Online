@@ -3,11 +3,7 @@
 {{block head}}
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-    var start_game_url = "{{=URL('api', 'start_game')}}";
-    var cancel_game_url = "{{=URL('api', 'cancel_game')}}";
-    var leave_game_url = "{{=URL('api', 'leave_game')}}";
-    var check_game_url = "{{=URL('api', 'check_game')}}";
-    var get_ingame_players_url = "{{=URL('api', 'get_ingame_players')}}";
+    var my_url = "{{=URL('api', 'my_method')}}";
 </script>
 {{end}}
 
@@ -24,13 +20,13 @@
             <div class="game_lobby_right_column">
                 <div class="game_users_list">
                     <p class="game_users_list_header">Players</p>
-                    <div v-for="user in users">
-                        ${user.username}
-                    </div>
+                <!--   <div v-for="user in users">
+                      ${user.username}
+                  </div> -->
               </div>
               <div class="game_lobby_buttons">
                   <!-- Should only be visible to host -->
-                  <a class="logout_btn rounded" v-on:click="start_game">Start Game</a>
+                  <a class="logout_btn rounded" v-on:click="start_game" >Start Game</a>
                   <a class="logout_btn rounded" v-on:click="cancel_game" >Cancel Game</a>
                   <!-- Should only be visible to non-hosts -->
                   <a class="logout_btn rounded" v-on:click="leave_game" >Leave Game</a>
