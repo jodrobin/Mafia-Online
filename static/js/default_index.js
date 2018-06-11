@@ -102,9 +102,17 @@ var app = function() {
                 }
             );
 		
-	}; 
+	};
 	
     self.get_games = function() {
+        setTimeout(function () {
+            $.post(get_games_url,
+                function (data) {
+					self.vue.games = data.games;
+                }
+            );
+        }, 100);
+
         var update = setInterval(function () {
             if (!self.vue.logged_in){
                 clearInterval(update);
@@ -112,9 +120,9 @@ var app = function() {
             $.post(get_games_url,
                 function (data) {
 					self.vue.games = data.games;
-                    }
-		);}
-        , 2000);
+                }
+            );
+        }, 2000);
 	};
 
     // Complete as needed.
