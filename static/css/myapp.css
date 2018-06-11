@@ -239,3 +239,8 @@ div.msg_input {
     border: 1px solid #000;
     padding-right: 10px;
 }
+
+.game_lobby_screen {
+    color: black;
+    height: 100%;
+}

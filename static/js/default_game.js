@@ -46,6 +46,7 @@ var app = function() {
             }
         }, 1000 );
     };
+
     self.initializeUsers = function() {
         $.getJSON(get_ingame_players_url, function(data){
             self.vue.users = data.players;
@@ -87,35 +88,35 @@ var app = function() {
     };
 
     self.perform_action = function(playerID, targetID){
-    console.log(playerID);
-    console.log(targetID);
-    var player = null;
-    var target = null;
-    for(var i = self.vue.users.length - 1; i >= 0; i--)
+        console.log(playerID);
+        console.log(targetID);
+        var player = null;
+        var target = null;
+        for (var i = self.vue.users.length - 1; i >= 0; i--)
         {
 
-            if (self.vue.users[i].user_id == playerID)
+            if (self.vue.users[i].user_id === playerID)
             {
-                player = self.vue.users[i]
+                player = self.vue.users[i];
             }
-            if (self.vue.users[i].user_id == targetID)
+            if (self.vue.users[i].user_id === targetID)
             {
-                target = self.vue.users[i]
+                target = self.vue.users[i];
             }
         }
-    console.log(player.username)
-    console.log(target.username)
-    if (player.initial_role == "Robber")
+        console.log(player.username);
+        console.log(target.username);
+        if (player.initial_role === "Robber")
         {
-            self.robber(player, target)
+            self.robber(player, target);
         }
-    if (player.initial_role == "Troublemaker")
+        if (player.initial_role === "Troublemaker")
         {
-            self.troublemaker(player, target)
+            self.troublemaker(player, target);
         }
-    if (player.initial_role == "Seer")
+        if (player.initial_role === "Seer")
         {
-            self.seer(player, target)
+            self.seer(player, target);
         }
     };
 
@@ -128,17 +129,17 @@ var app = function() {
             p2_role: target.role,
         },
         function(){
-            self.initializeUsers()
+            self.initializeUsers();
         })
 
 
     };
     self.troublemaker = function(player, target) {
-        if (self.troublemaker_target1 == null && target.user_id != player.user_id)
+        if (self.troublemaker_target1 == null && target.user_id !== player.user_id)
         {
-            self.troublemaker_target1 = target
+            self.troublemaker_target1 = target;
         }
-        else if (self.troublemaker_target1.user_id != target.user_id)
+        else if (self.troublemaker_target1.user_id !== target.user_id)
         {
             $.post(swap_players_url,
         {
@@ -148,18 +149,18 @@ var app = function() {
             p2_role: target.role,
         },
         function(){
-            self.initializeUsers()
-            self.troublemaker_target1 = null
+            self.initializeUsers();
+            self.troublemaker_target1 = null;
         })
         }
     };
 
     self.seer = function(player, target) {
-        if (target.user_id != player.user_id)
+        if (target.user_id !== player.user_id)
         {
-            console.log("Seer sees: " + target.role)
+            console.log("Seer sees: " + target.role);
         }
-    }
+    };
 
 
 

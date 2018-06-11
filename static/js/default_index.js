@@ -31,8 +31,13 @@ var app = function() {
             self.vue.logged_in = data.logged_in;
             self.vue.user_id = data.user_id;
             self.vue.user_username = data.user_username;
+            self.update_player_info();
             self.update_users();
         });
+    };
+
+    self.update_player_info = function () {
+        $.post(update_player_info_url);
     };
 
     self.update_users = function () {
@@ -89,14 +94,13 @@ var app = function() {
 	self.create_game = function () {
 		$.post(add_game_url,
                 {
-                    new_game: self.vue.new_game
+                    new_game: self.vue.new_game,
+                    id: self.vue.user_id,
                 },
-                function(data){
-                    self.vue.creating_game = false;
+                function(){
+                    window.location.href = 'game_lobby';
                 }
             );
-			
-		window.location.href = 'game_lobby'; 
 		
 	}; 
 	

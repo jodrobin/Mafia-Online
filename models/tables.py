@@ -26,16 +26,17 @@ db.define_table('player',
                 Field('user_id', default=get_user_id()),
                 Field('bio', 'text'),
                 Field('current_game'),
-                Field('initialrole'),
+                Field('initial_role'),
                 Field('role'),
                 Field('is_dead', 'boolean', default=False),
                 )
 
 
 db.define_table('game',
-				Field('game_name'),
-                Field('num_players', default=1))
-
+                Field('game_name'),
+                Field('num_players', default=1),
+                Field('has_started', 'boolean', default=False),
+                Field('has_ended', 'boolean', default=False))
 
 
 db.define_table('chat',
