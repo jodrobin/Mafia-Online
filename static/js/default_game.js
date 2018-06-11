@@ -86,6 +86,48 @@ var app = function() {
         }, 2000);
     };
 
+    self.perform_action = function(playerID, targetID){
+    console.log(playerID);
+    console.log(targetID);
+    var player = null;
+    var target = null;
+    for(var i = self.vue.users.length - 1; i >= 0; i--)
+        {
+
+            if (self.vue.users[i].user_id == playerID)
+            {
+                player = self.vue.users[i]
+            }
+            if (self.vue.users[i].user_id == targetID)
+            {
+                target = self.vue.users[i]
+            }
+        }
+    console.log(player.username)
+    console.log(target.username)
+    if (player.initial_role == "Robber")
+        {
+            self.robber(player, target)
+        }
+    };
+
+    self.robber = function(player, target) {
+        $.post(swap_players_url,
+        {
+            p1: player.user_id,
+            p2: target.user_id,
+            p1_role: player.role,
+            p2_role: target.role,
+        },
+        function(){
+            self.initializeUsers()
+        })
+
+
+    }
+
+
+
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
@@ -109,6 +151,7 @@ var app = function() {
         },
         methods: {
             send_msg: self.send_msg,
+            perform_action: self.perform_action,
         }
 
     });

@@ -26,6 +26,7 @@ db.define_table('player',
                 Field('user_id', default=get_user_id()),
                 Field('bio', 'text'),
                 Field('current_game'),
+                Field('initialrole'),
                 Field('role'),
                 Field('is_dead', 'boolean', default=False),
                 )
