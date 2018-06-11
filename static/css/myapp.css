@@ -100,6 +100,7 @@ div.user_html_body .reset_pass_btn{
 }
 
 div.main_lobby_content{
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   color: white;
   height: 100%;
   background: url('../images/main_lobby_bg.jpg') no-repeat center center fixed;
@@ -177,6 +178,7 @@ div.main_lobby_content div.main_lobby_right_column div.main_lobby_buttons{
 
 div.game_screen {
     height: 100%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     color: white;
     background: url('../images/game_bg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -198,8 +200,8 @@ div.game_timer {
     height: 5%;
     width: 70%;
     margin:0 auto;
-    border: 1px solid #000;
     text-align: center;
+    font-size: 25px;
 }
 
 div.game_chat {
@@ -243,4 +245,8 @@ div.msg_input {
 .game_lobby_screen {
     color: black;
     height: 100%;
+}
+
+tr {
+    color: white;
 }
