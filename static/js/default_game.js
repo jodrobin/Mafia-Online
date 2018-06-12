@@ -42,7 +42,7 @@ var app = function() {
                             self.vue.timer_minutes = 1;
                             self.vue.is_day = true;
                         }
-                        if (self.vue.phase[self.vue.phase_count] === "Voting")
+                        if (self.vue.phases[self.vue.phase_count] === "Voting")
                         {
                             self.vue.timer_seconds = 5;
                         }
@@ -242,12 +242,13 @@ var app = function() {
         if (player.initial_role === "Robber" && self.vue.phases[self.vue.phase_count] === "Robber" && !self.vue.done)
             {
                 self.robber(player, target);
+                self.vue.done = true;
 
             }
         if (player.initial_role === "Troublemaker" && self.vue.phases[self.vue.phase_count] === "Troublemaker" && !self.vue.done)
             {
                 self.troublemaker(player, target);
-                self.vue.done = true;
+
             }
         if (player.initial_role === "Seer" && self.vue.phases[self.vue.phase_count] === "Seer" && !self.vue.done)
             {
