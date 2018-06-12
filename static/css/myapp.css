@@ -115,7 +115,7 @@ div.main_lobby_content div.main_lobby_games{
     height: 80%;
     width: 20%;
     margin: 3.5% 2.5% 5.5% 1.45%;
-    border: 1px solid #000;
+    border: 1px solid white;
     overflow: auto;
     padding: 5px 15px;
     font-size: 20px;
@@ -133,7 +133,7 @@ div.main_lobby_content div.main_lobby_chat {
     width: 50%;
     margin-top: 3.5%;
     margin-bottom: 5.5%;
-    border: 1px solid #000;
+    border: 1px solid white;
     overflow: auto;
     padding: 5px 10px;
 }
@@ -147,7 +147,7 @@ div.main_lobby_content div.main_lobby_right_column{
 
 div.main_lobby_content div.main_lobby_right_column div.online_users_list{
     height: 82%;
-    border: 1px solid #000;
+    border: 1px solid white;
     overflow: auto;
     padding: 5px 15px;
     font-size: 20px;
@@ -207,7 +207,7 @@ div.game_timer {
 div.game_chat {
     height: 73%;
     margin-top: 1%;
-    border: 1px solid #000;
+    border: 1px solid white;
     padding: 5px 10px;
     overflow: auto;
 }
@@ -217,7 +217,7 @@ div.players_list {
     height: 80%;
     width: 25%;
     margin: 3.5% 2.5% 0 2.5%;
-    border: 1px solid #000;
+    border: 1px solid white;
     overflow: auto;
     padding: 5px 15px;
     font-size: 20px;
@@ -243,7 +243,12 @@ div.msg_input {
 }
 
 .game_lobby_screen {
-    color: black;
+    background: url('../images/game_lobby_bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
     height: 100%;
 }
 
@@ -258,7 +263,7 @@ div.game_lobby_screen div.game_lobby_chat {
     width: 50%;
     margin-top: 3.5%;
     margin-bottom: 5.5%;
-    border: 1px solid #000;
+    border: 1px solid white;
     overflow: auto;
     padding: 5px 10px;
 }
@@ -272,7 +277,7 @@ div.game_lobby_screen div.game_lobby_right_column{
 
 div.game_lobby_screen div.game_lobby_right_column div.game_users_list{
    height: 82%;
-   border: 1px solid #000;
+   border: 1px solid white;
    overflow: auto;
    padding: 5px 15px;
    font-size: 20px;
@@ -299,4 +304,13 @@ div.game_lobby_screen div.game_lobby_right_column div.game_lobby_buttons {
  background-color:firebrick;
  font-size:1.5em;
  color:white
+}
+
+div.creation_form {
+    height: 100%;
+    background: url('../images/game_lobby_bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
