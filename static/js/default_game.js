@@ -133,7 +133,6 @@ var app = function() {
                 self.vue.mafia_wins = true;
             }
         })
-
     }
 
     self.initializeUsers = function() {
