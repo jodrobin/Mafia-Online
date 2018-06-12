@@ -75,12 +75,16 @@ var app = function() {
         self.initializeUsers();
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
-                if (self.vue.users[i].user_id === self.vue.user_id){
+                if (self.vue.users[i].user_id === user_id){
                     return self.vue.users[i].role;
                 }
             }
             return "error"
     };
+
+    self.tally_votes = function() {
+
+    }
 
     self.initializeUsers = function() {
         $.getJSON(get_ingame_players_url, function(data){
@@ -124,7 +128,7 @@ var app = function() {
     for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
                 console.log(self.vue.users[i]);
-                if (self.vue.users[i].user_id === self.vue.user_id && self.vue.users[i].leader){
+                if (self.vue.users[i].user_id === user_id && self.vue.users[i].leader){
                     return true
                 }
             }
@@ -174,12 +178,13 @@ var app = function() {
 
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
+                console.log(self.vue.users[i].user_id)
 
-                if (self.vue.users[i].user_id === playerID)
+                if (self.vue.users[i].user_id == playerID)
                 {
                     player = self.vue.users[i]
                 }
-                if (self.vue.users[i].user_id === targetID)
+                if (self.vue.users[i].user_id == targetID)
                 {
                     target = self.vue.users[i]
                 }
