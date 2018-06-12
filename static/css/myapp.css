@@ -316,14 +316,39 @@ div.creation_form {
 }
 
 div.creation_form_contents {
-    width: 20%;
-    height: 30%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    width: 25%;
+    height: 40%;
     border: 1px solid white;
     position: absolute;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
-
     margin: auto;
+}
+
+div.make_game_btns {
+    position: absolute;
+    bottom: 0;
+    margin-left: 12.5%;
+}
+
+div.make_game_btns button {
+    background-color: firebrick;
+}
+
+div.make_game_public {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.game_naming {
+    margin-top: 10px;
+}
+
+div.creation_form_header {
+    text-align: center;
+    font-weight: bold;
 }

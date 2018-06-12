@@ -74,10 +74,19 @@
       </div>
 	  <div class="creation_form" v-if="creating_game">
         <div class="creation_form_contents">
-          Game Name: <input class="make_game" v-model="new_game"/>
-          Public? <input class="make_game_public" type="checkbox" v-model="public_checked"/>
+          <div class="creation_form_header">
+              Create Game
+          </div>
+          <div class="game_naming">
+            <label>Game Name</label>
+            <input class="make_game" v-model="new_game"/>
+          </div>
+          <div class="make_game_public">
+            Public? <input type="checkbox" v-model="public_checked"/>
+          </div>
           <div v-if="!public_checked">
-            Password: <input class="make_game_pass" v-model="new_pass"/>
+            <label>Password</label>
+            <input class="make_game_pass" v-model="new_pass"/>
           </div>
           <div class="make_game_btns">
             <button v-on:click="create_game">Submit</button>

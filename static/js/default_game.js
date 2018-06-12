@@ -82,10 +82,6 @@ var app = function() {
             return "error"
     };
 
-    self.tally_votes = function() {
-
-    }
-
     self.initializeUsers = function() {
         $.getJSON(get_ingame_players_url, function(data){
             self.vue.users = data.players;
@@ -178,13 +174,12 @@ var app = function() {
 
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
-                console.log(self.vue.users[i].user_id)
 
-                if (self.vue.users[i].user_id == playerID)
+                if (self.vue.users[i].user_id === playerID)
                 {
                     player = self.vue.users[i]
                 }
-                if (self.vue.users[i].user_id == targetID)
+                if (self.vue.users[i].user_id === targetID)
                 {
                     target = self.vue.users[i]
                 }
