@@ -19,19 +19,6 @@
     <div id="vue-div" class="display:none">
         <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
         <div class="game_lobby_screen">
-			
-			<div class="game_lobby_chat">
-			  <div class="msg_list_container">
-				<div class="msg_list">
-				  <div v-for="message in messages">
-					<div class="msgs">${message.author}: ${message.msg}</div>
-				  </div>
-				  </div>
-				</div>
-				<div class="msg_input">
-				  <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
-				</div>
-			</div>
 
             <div class="game_lobby_right_column">
                 <div class="game_users_list">
