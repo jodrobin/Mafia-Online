@@ -253,6 +253,26 @@ def update_roles():
 
     return
 
+def get_votes():
+    players = []
+    game_id = db(db.player.user_email == auth.user.email).select().first().current_game
+
+    for row in db(db.player.current_game == game_id).select():
+        pid = row.user_id
+        count = 0
+        for row2 in db(db.player.current_game == game_id).select():
+            if row2.vote == pid:
+                count += 1
+
+        player = dict(
+            count=count,
+            role=row.role,
+        )
+        players.append(player)
+    return response.json(dict(
+        players=players,
+    ))
+
 
 def get_game_id(): 
     game_id = db(db.player.user_email == auth.user.email).select().first().current_game
