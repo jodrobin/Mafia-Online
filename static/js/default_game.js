@@ -4,6 +4,7 @@ var app = function() {
 
     var self = {};
 
+
     Vue.config.silent = false; // show all warnings
 
     // Extends an array
@@ -21,6 +22,10 @@ var app = function() {
             self.vue.timer_seconds--;
             self.vue.chat_timer--;
 
+            if (self.vue.timer_seconds <= 3) {
+                self.initializeUsers();
+            }
+
             if (self.vue.chat_timer <= 0){
                 self.get_new_msgs();
                 self.vue.chat_timer = 2;
@@ -31,17 +36,22 @@ var app = function() {
                     if (self.vue.phase_count < self.vue.phase_max - 1) {
                         self.initializeUsers();
                         self.vue.timer_minutes = 0;
-                        self.vue.timer_seconds = 15;
-                        if (self.vue.phase_count > 3)
+                        self.vue.timer_seconds = 30;
+                        if (self.vue.phases[self.vue.phase_count] ==="Troublemaker")
                         {
-                            self.vue.timer_minutes = 0;
+                            self.vue.timer_minutes = 1;
+                            self.vue.is_day = true;
                         }
-                        if (self.vue.phases[self.vue.phase_count]==="Initial")
+                        if (self.vue.phase[self.vue.phase_count] === "Voting")
+                        {
+                            self.vue.timer_seconds = 5;
+                        }
+                        if (self.vue.phases[self.vue.phase_count]==="Initializing")
                         {
                             self.vue.player_log += "Your initial role is " + self.get_role() + "\n";
                             if (self.get_role() === "Mafia")
                                 {
-                                    self.vue.player_log += self.display_mafia()
+                                    self.vue.player_log += self.display_mafia() + "\n"
                                 }
                         }
 
@@ -49,6 +59,7 @@ var app = function() {
 
                     } else {
                         self.vue.has_game_ended = true;
+                        self.tally_votes();
                         clearInterval(func);
                     }
                 } else {
@@ -83,6 +94,45 @@ var app = function() {
     };
 
     self.tally_votes = function() {
+
+        $.getJSON(get_votes_url,  function(data){
+            var plays = data.players;
+            var mafia_present = false;
+            var all_even = true;
+            var current_max = 0;
+            var mafia_dies = false;
+            for(var i = 0; i < plays.length; i++){
+                if (plays[i].role ==="Mafia"){
+                    mafia_present = true;
+                    if(plays[i].count >= current_max)
+                    {
+                        current_max = plays[i].count;
+                        mafia_dies = true
+                    }
+                    all_even = false;
+                }
+                if (plays[i].count > current_max){
+                    current_max = plays[i].count;
+                    if(i > 0){
+                        all_even = false;
+                    }
+                    mafia_dies = false;
+                }
+
+            }
+            console.log(mafia_present);
+            console.log(current_max);
+            console.log(all_even);
+            console.log(mafia_dies);
+            if(mafia_present === true && mafia_dies === false)
+            {
+                self.vue.mafia_wins = true;
+            }
+            if(mafia_present=== false && all_even === false)
+            {
+                self.vue.mafia_wins = true;
+            }
+        })
     }
 
     self.initializeUsers = function() {
@@ -145,7 +195,7 @@ var app = function() {
 
                     },
                     function () {
-
+                        self.initializeUsers();
                     });
 
                  if (x > -1) {
@@ -189,17 +239,20 @@ var app = function() {
             }
         console.log(player.username);
         console.log(target.username);
-        if (player.initial_role === "Robber" && self.vue.phases[self.vue.phase_count] === "Robber")
+        if (player.initial_role === "Robber" && self.vue.phases[self.vue.phase_count] === "Robber" && !self.vue.done)
             {
                 self.robber(player, target);
+
             }
-        if (player.initial_role === "Troublemaker" && self.vue.phases[self.vue.phase_count] === "Troublemaker")
+        if (player.initial_role === "Troublemaker" && self.vue.phases[self.vue.phase_count] === "Troublemaker" && !self.vue.done)
             {
                 self.troublemaker(player, target);
+                self.vue.done = true;
             }
-        if (player.initial_role === "Seer" && self.vue.phases[self.vue.phase_count] === "Seer")
+        if (player.initial_role === "Seer" && self.vue.phases[self.vue.phase_count] === "Seer" && !self.vue.done)
             {
                 self.seer(player, target);
+                self.vue.done = true;
             }
         if(self.vue.phases[self.vue.phase_count] === "Voting")
         {
@@ -224,6 +277,8 @@ var app = function() {
         },
         function(){
             self.initializeUsers();
+            self.vue.player_log += "You stole the role of " + target.role + "\n";
+            self.vue.player_log += "Your new role is " + target.role + "\n";
         })
 
 
@@ -245,6 +300,7 @@ var app = function() {
         function(){
             self.initializeUsers();
             self.troublemaker_target1 = null;
+            self.vue.done = true;
         })
         }
     };
@@ -272,9 +328,10 @@ var app = function() {
             timer_seconds: null,
             roles: ["Mafia", "Mafia", "Seer", "Robber", "Troublemaker", "Villager"],
             game_id: null,
+            mafia_wins: false,
             turn: 0,
             phase: 'Day',
-            is_day: true,
+            is_day: false,
             roles_not_initialized: true,
             chat_timer: 2,
             has_game_ended: false,
@@ -282,10 +339,11 @@ var app = function() {
             new_msg: null,
             start_time: null,
             troublemaker_target1: null,
-            phases: ["Initial", "Seer","Robber","Troublemaker","Discussion","Voting", "End" ],
+            phases: ["Initializing", "Seer","Robber","Troublemaker","Discussion","Voting", "Tallying Votes" ],
             phase_count: 0,
             phase_max: 0,
             player_log: " ",
+            done: false,
 
         },
         methods: {

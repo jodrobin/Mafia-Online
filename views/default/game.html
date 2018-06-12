@@ -9,6 +9,7 @@
     var cast_vote_url = "{{=URL('api', 'cast_vote')}}";
     var swap_players_url = "{{=URL('api', 'swap_player_roles')}}";
     var update_roles_url = "{{=URL('api', 'update_roles')}}";
+    var get_votes_url = "{{=URL('api', 'get_votes')}}";
     var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
     {{if auth.user is not None:}}
         var user_id = "{{=auth.user.id}}";
@@ -26,8 +27,11 @@
                   <div v-if="!has_game_ended">
                       ${phases[phase_count]}: ${timer_minutes} Minutes ${timer_seconds} Seconds Remaining
                   </div>
-                  <div v-if="has_game_ended">
-                      Game Over
+                  <div v-if="has_game_ended && mafia_wins">
+                      Game Over, Mafia wins!
+                  </div>
+                  <div v-if="has_game_ended && !mafia_wins">
+                      Game Over, Innocents win!
                   </div>
               </div>
               <div class="game_chat">
