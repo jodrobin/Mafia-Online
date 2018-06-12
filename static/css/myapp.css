@@ -250,3 +250,53 @@ div.msg_input {
 tr {
     color: white;
 }
+
+
+div.game_lobby_screen div.game_lobby_chat {
+    float: left;
+    height: 80%;
+    width: 50%;
+    margin-top: 3.5%;
+    margin-bottom: 5.5%;
+    border: 1px solid #000;
+    overflow: auto;
+    padding: 5px 10px;
+}
+
+div.game_lobby_screen div.game_lobby_right_column{
+   float: right;
+   height: 80%;
+   width: 20%;
+   margin: 3.5% 2.5% 0 2.5%;
+}
+
+div.game_lobby_screen div.game_lobby_right_column div.game_users_list{
+   height: 82%;
+   border: 1px solid #000;
+   overflow: auto;
+   padding: 5px 15px;
+   font-size: 20px;
+}
+
+div.game_lobby_screen div.game_lobby_right_column div.game_users_list p.game_users_list_header{
+   text-align: center;
+   font-weight: bold;
+   font-size: 25px;
+}
+
+div.game_lobby_screen div.game_lobby_right_column div.game_lobby_buttons {
+   float: bottom;
+   padding-top: 12px;
+   padding-left: 5.5px;
+}
+
+.logout_btn, button {
+ text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+ width: 10em;
+ text-align: center;
+ margin:0 0.5em 0.5em 0.5em;
+ display:inline-block;
+ background-color:firebrick;
+ font-size:1.5em;
+ color:white
+}

@@ -230,3 +230,8 @@ def join_game():
         )
 
     return "ok"
+	
+def get_game_id(): 
+	game_id = db(db.player.user_email == auth.user.email).select().first().current_game
+	
+	return response.json(dict(game_id=game_id))
