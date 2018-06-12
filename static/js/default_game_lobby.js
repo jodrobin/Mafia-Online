@@ -59,6 +59,45 @@ var app = function() {
             console.log("Data " + data.game_id);
         })
     };
+	
+    self.send_msg = function () {
+        $.post(send_msg_url,
+            {
+                msg: self.vue.new_msg,
+                author: self.vue.user_username,
+                the_time: Date.now(),
+                chat_id: self.vue.chat_id
+            },
+            function () {
+                self.vue.new_msg = null;
+            });
+    };
+
+    self.get_new_msgs = function() {
+        var update = setInterval(function () {
+            if (!self.vue.logged_in){
+                clearInterval(update);
+            }
+            $.post(get_new_msgs_url,
+                {
+                    the_time: self.vue.login_time,
+                    chat_id: self.vue.chat_id
+                },
+                function (data) {
+                    if (data.messages.length > self.vue.messages.length) {
+                        self.vue.messages = data.messages;
+                        // self.vue.messages.push.apply(self.vue.messages, data.messages);
+                    }
+                });
+        }, 2000);
+    };
+	
+	self.get_game_id = function () {
+		$.post(get_game_id_url, 
+			function (data) {
+				self.vue.chat_id = data.game_id; 
+			});
+	};
 
     // Complete as needed.
     self.vue = new Vue({
@@ -69,17 +108,24 @@ var app = function() {
             user_id: null,
             users: [],
             game_id: null,
+			chat_id: null, 
+			login_time: null, 
+			messages: [],
+			new_msg: null,
         },
         methods: {
             start_game: self.start_game,
             cancel_game: self.cancel_game,
             leave_game: self.leave_game,
+			send_msg: self.send_msg, 
         }
 
     });
 
     self.initializeUsers();
     self.check_game();
+	self.get_new_msgs(); 
+    self.vue.login_time = Date.now();
 
 
     $("#vue-div").show();

@@ -232,9 +232,16 @@ def join_game():
 
     return "ok"
 
+
 def update_roles():
     player = request.vars.player
     (db(db.player.user_id == player).update(role=request.vars.role))
     (db(db.player.user_id == player).update(initial_role=request.vars.role))
 
     return
+
+
+def get_game_id(): 
+    game_id = db(db.player.user_email == auth.user.email).select().first().current_game
+	return response.json(dict(game_id=game_id))
+

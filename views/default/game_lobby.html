@@ -8,6 +8,9 @@
     var leave_game_url = "{{=URL('api', 'leave_game')}}";
     var check_game_url = "{{=URL('api', 'check_game')}}";
     var get_ingame_players_url = "{{=URL('api', 'get_ingame_players')}}";
+    var send_msg_url = "{{=URL('api', 'send_msg')}}";
+    var get_new_msgs_url = "{{=URL('api', 'get_new_msgs')}}";
+	var get_game_id_url = "{{=URL('api', 'get_game_id')}}";
 </script>
 {{end}}
 
@@ -16,10 +19,19 @@
     <div id="vue-div" class="display:none">
         <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
         <div class="game_lobby_screen">
-            <div class="game_lobby_roles">
-                <p class="roles_header">Roles</p>
-
-            </div>
+			
+			<div class="game_lobby_chat">
+			  <div class="msg_list_container">
+				<div class="msg_list">
+				  <div v-for="message in messages">
+					<div class="msgs">${message.author}: ${message.msg}</div>
+				  </div>
+				  </div>
+				</div>
+				<div class="msg_input">
+				  <input type="text" v-model="new_msg" v-on:keyup.enter="send_msg">
+				</div>
+			</div>
 
             <div class="game_lobby_right_column">
                 <div class="game_users_list">
