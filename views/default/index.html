@@ -11,6 +11,7 @@
 	var join_game_url = "{{=URL('api', 'join_game')}}";
 	var get_games_url = "{{=URL('api', 'get_games')}}";
 	var update_player_info_url = "{{=URL('api', 'update_player_info')}}";
+	var ask_for_password_url = "{{=URL('api', 'ask_for_password')}}";
 </script>
 {{end}}
 
@@ -34,7 +35,15 @@
         <div class="main_lobby_games">
           <p class="game_header">Games</p>
           <div v-for="game in games">
-             <div v-on:click="join_game(game.id)"> ${game.game_name}</div>
+            <div v-if="game.is_public">
+              <div v-on:click="join_game(game.id)"> ${game.game_name}</div>
+            </div>
+            <div v-if="!game.is_public">
+              <div v-on:click="ask_for_password(game.id)"> ${game.game_name} <i class="fa fa-lock"></i></div>
+              <div v-if="game.inputting_password">
+                Password: <input type="text" v-model="password_input" v-on:keyup.enter="check_password(game.id)">
+              </div>
+            </div>
           </div>
         </div>
         <div class="main_lobby_chat">
@@ -63,11 +72,18 @@
         </div>
 
       </div>
-	  <div class="creation_form" v-if="creating_game"> 
-		<p class="game_id"> Game name: </p>
-		<input id="make_game" v-model="new_game"/>
-		<button v-on:click="create_game">Submit</button>
-		<button v-on:click="cancel_create">Cancel</button> 
+	  <div class="creation_form" v-if="creating_game">
+        <div class="creation_form_contents">
+          Game Name: <input class="make_game" v-model="new_game"/>
+          Public? <input class="make_game_public" type="checkbox" v-model="public_checked"/>
+          <div v-if="!public_checked">
+            Password: <input class="make_game_pass" v-model="new_pass"/>
+          </div>
+          <div class="make_game_btns">
+            <button v-on:click="create_game">Submit</button>
+		    <button v-on:click="cancel_create">Cancel</button>
+          </div>
+        </div>
 	  </div> 
     </div>
 </div>

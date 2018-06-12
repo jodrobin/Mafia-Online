@@ -314,3 +314,16 @@ div.creation_form {
     -o-background-size: cover;
     background-size: cover;
 }
+
+div.creation_form_contents {
+    width: 20%;
+    height: 30%;
+    border: 1px solid white;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}

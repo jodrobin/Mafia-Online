@@ -97,6 +97,8 @@ var app = function() {
             {
                 new_game: self.vue.new_game,
                 id: self.vue.user_id,
+                new_pass: self.vue.new_pass,
+                public_checked: self.vue.public_checked
             },
             function(){
 		        window.location.href = 'game_lobby';
@@ -140,6 +142,33 @@ var app = function() {
 
 	};
 
+    self.ask_for_password = function (game_id) {
+        var toggle = false;
+        self.vue.games.forEach(function (game) {
+            if (game.id === game_id) {
+                toggle = !game.inputting_password;
+                game.inputting_password = !game.inputting_password;
+            } else {
+                game.inputting_password = false;
+            }
+            self.vue.password_input = null;
+        });
+
+        $.post(ask_for_password_url,
+            {
+                game_id: game_id,
+                toggle: toggle,
+            });
+    };
+
+    self.check_password = function (game_id){
+        self.vue.games.forEach(function (game) {
+            if (game.id === game_id && game.password === self.vue.password_input) {
+                self.join_game(game_id);
+            }
+        });
+    };
+
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
@@ -157,6 +186,9 @@ var app = function() {
 			games: [], 
 			creating_game: false,
 			new_game: null,
+            password_input: null,
+            public_checked: true,
+            new_pass: null,
         },
         methods: {
             send_msg: self.send_msg,
@@ -165,6 +197,8 @@ var app = function() {
 			create_game: self.create_game,
 			get_games: self.get_games,
             join_game: self.join_game,
+            ask_for_password: self.ask_for_password,
+            check_password: self.check_password,
         }
 
     });

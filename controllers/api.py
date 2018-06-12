@@ -138,7 +138,8 @@ def get_new_msgs():
 
 
 def add_game():
-    t_id = db.game.insert(game_name=request.vars.new_game)
+    t_id = db.game.insert(game_name=request.vars.new_game, is_public=request.vars.public_checked,
+                          password=request.vars.new_pass)
     logger.info(t_id)
     row = db(db.player.user_id == request.vars.id).select().first()
     logger.info(row)
@@ -160,6 +161,9 @@ def get_games():
             game_name=row.game_name,
             num_players=row.num_players,
             id=row.id,
+            inputting_password=row.inputting_password,
+            password=row.password,
+            is_public=row.is_public,
         )
         games.append(g)
 
@@ -229,6 +233,15 @@ def join_game():
         game_row.update_record(
             num_players=new_num_players
         )
+
+    return "ok"
+
+
+def ask_for_password():
+    logger.info("ask for password")
+    logger.info(request.vars.game_id)
+    db(db.game.id != request.vars.game_id).update(inputting_password=False)
+    db(db.game.id == request.vars.game_id).update(inputting_password=request.vars.toggle)
 
     return "ok"
 

@@ -38,7 +38,10 @@ db.define_table('game',
                 Field('game_name'),
                 Field('num_players', 'integer', default=1),
                 Field('has_started', 'boolean', default=False),
-                Field('has_ended', 'boolean', default=False))
+                Field('has_ended', 'boolean', default=False),
+                Field('is_public', 'boolean', default=True),
+                Field('inputting_password', 'boolean', default=False),
+                Field('password'))
 
 
 db.define_table('chat',
