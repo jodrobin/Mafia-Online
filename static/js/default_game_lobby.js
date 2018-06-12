@@ -48,49 +48,21 @@ var app = function() {
                 } else if (data.has_ended === true) {
                     window.location.href = 'index';
                 }
-            })}, 1500);
+            })}, 2000);
     };
 
     self.initializeUsers = function() {
-        $.getJSON(get_ingame_players_url, function(data){
-            self.vue.users = data.players;
-            self.vue.user_id = data.user_id;
-            self.vue.game_id = data.game_id;
-            console.log("Data " + data.game_id);
-        })
-    };
-	
-    self.send_msg = function () {
-        $.post(send_msg_url,
-            {
-                msg: self.vue.new_msg,
-                author: self.vue.user_username,
-                the_time: Date.now(),
-                chat_id: self.vue.chat_id
-            },
-            function () {
-                self.vue.new_msg = null;
-            });
+        setInterval(function() {
+            $.getJSON(get_ingame_players_url, function (data) {
+                self.vue.is_leader = data.is_leader;
+                self.vue.users = data.players;
+                self.vue.user_id = data.user_id;
+                self.vue.game_id = data.game_id;
+                console.log("Data " + data.game_id);
+            })
+        }, 1500);
     };
 
-    self.get_new_msgs = function() {
-        var update = setInterval(function () {
-            if (!self.vue.logged_in){
-                clearInterval(update);
-            }
-            $.post(get_new_msgs_url,
-                {
-                    the_time: self.vue.login_time,
-                    chat_id: self.vue.chat_id
-                },
-                function (data) {
-                    if (data.messages.length > self.vue.messages.length) {
-                        self.vue.messages = data.messages;
-                        // self.vue.messages.push.apply(self.vue.messages, data.messages);
-                    }
-                });
-        }, 2000);
-    };
 	
 	self.get_game_id = function () {
 		$.post(get_game_id_url, 
@@ -112,6 +84,7 @@ var app = function() {
 			login_time: null, 
 			messages: [],
 			new_msg: null,
+            is_leader: null,
         },
         methods: {
             start_game: self.start_game,
@@ -124,9 +97,6 @@ var app = function() {
 
     self.initializeUsers();
     self.check_game();
-	self.get_new_msgs(); 
-    self.vue.login_time = Date.now();
-
 
     $("#vue-div").show();
 
