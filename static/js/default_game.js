@@ -21,7 +21,12 @@ var app = function() {
             self.vue.timer_seconds--;
             self.vue.chat_timer--;
 
-            if(self.vue.timer_seconds <= 0) {
+            if (self.vue.chat_timer <= 0){
+                self.get_new_msgs();
+                self.vue.chat_timer = 2;
+            }
+
+            if (self.vue.timer_seconds <= 0) {
                 if (self.vue.timer_minutes <= 0){
                     if (self.vue.phase_count < self.vue.phase_max - 1) {
                         self.initializeUsers();
@@ -31,10 +36,10 @@ var app = function() {
                         {
                             self.vue.timer_minutes = 0;
                         }
-                        if (self.vue.phases[self.vue.phase_count]=="Initial")
+                        if (self.vue.phases[self.vue.phase_count]==="Initial")
                         {
-                            self.vue.player_log += "Your initial role is " + self.get_role() + "\n"
-                            if (self.get_role() == "Mafia")
+                            self.vue.player_log += "Your initial role is " + self.get_role() + "\n";
+                            if (self.get_role() === "Mafia")
                                 {
                                     self.vue.player_log += self.display_mafia()
                                 }
@@ -51,10 +56,7 @@ var app = function() {
                     self.vue.timer_seconds = 60;
                 }
             }
-            if (self.vue.chat_timer === 0){
-                self.vue.chat_timer = 2;
-                self.get_new_msgs();
-            }
+
         }, 1000 );
     };
 
@@ -62,23 +64,23 @@ var app = function() {
         var list = "The Mafia to start are: ";
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
-                if (self.vue.users[i].role == "Mafia"){
+                if (self.vue.users[i].role === "Mafia"){
                     list += self.vue.users[i].username + " ";
                 }
             }
             return list
-    }
+    };
 
     self.get_role = function() {
         self.initializeUsers();
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
-                if (self.vue.users[i].user_id == user_id){
-                    return self.vue.users[i].role
+                if (self.vue.users[i].user_id === self.vue.user_id){
+                    return self.vue.users[i].role;
                 }
             }
             return "error"
-    }
+    };
 
     self.initializeUsers = function() {
         $.getJSON(get_ingame_players_url, function(data){
@@ -88,16 +90,16 @@ var app = function() {
             self.vue.game_id = data.game_id;
 
             if(self.vue.roles_not_initialized){
-                self.vue.roles_not_initialized = false
+                self.vue.roles_not_initialized = false;
                 while(self.vue.users.length +3 > self.vue.roles.length)
                 {
-                    self.vue.roles.push("Villager")
+                    self.vue.roles.push("Villager");
                 }
                 console.log(self.vue.roles);
                 console.log(self.leader());
                 if(self.leader())
                 {
-                    self.assign_roles()
+                    self.assign_roles();
                 }
             }
         })
@@ -118,16 +120,16 @@ var app = function() {
     };
 
     self.leader = function() {
-    console.log(self.vue.users.length)
+    console.log(self.vue.users.length);
     for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
                 console.log(self.vue.users[i]);
-                if (self.vue.users[i].user_id == user_id && self.vue.users[i].leader){
+                if (self.vue.users[i].user_id === self.vue.user_id && self.vue.users[i].leader){
                     return true
                 }
             }
             return false
-    }
+    };
 
     self.assign_roles = function() {
         for(var i = self.vue.users.length - 1; i >= 0; i--)
@@ -149,8 +151,8 @@ var app = function() {
 }
 
             }
-        self.initializeUsers()
-    }
+        self.initializeUsers();
+    };
 
     self.get_new_msgs = function() {
 
@@ -160,9 +162,7 @@ var app = function() {
                 chat_id: self.vue.game_id
             },
             function (data) {
-                if (data.messages.length > self.vue.messages.length) {
-                    self.vue.messages = data.messages;
-                }
+                self.vue.messages = data.messages;
             });
     };
 
@@ -175,30 +175,30 @@ var app = function() {
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
 
-                if (self.vue.users[i].user_id == playerID)
+                if (self.vue.users[i].user_id === playerID)
                 {
                     player = self.vue.users[i]
                 }
-                if (self.vue.users[i].user_id == targetID)
+                if (self.vue.users[i].user_id === targetID)
                 {
                     target = self.vue.users[i]
                 }
             }
-        console.log(player.username)
-        console.log(target.username)
-        if (player.initial_role == "Robber" && self.vue.phases[self.vue.phase_count] == "Robber")
+        console.log(player.username);
+        console.log(target.username);
+        if (player.initial_role === "Robber" && self.vue.phases[self.vue.phase_count] === "Robber")
             {
-                self.robber(player, target)
+                self.robber(player, target);
             }
-        if (player.initial_role == "Troublemaker" && self.vue.phases[self.vue.phase_count] == "Troublemaker")
+        if (player.initial_role === "Troublemaker" && self.vue.phases[self.vue.phase_count] === "Troublemaker")
             {
-                self.troublemaker(player, target)
+                self.troublemaker(player, target);
             }
-        if (player.initial_role == "Seer" && self.vue.phases[self.vue.phase_count] == "Seer")
+        if (player.initial_role === "Seer" && self.vue.phases[self.vue.phase_count] === "Seer")
             {
-                self.seer(player, target)
+                self.seer(player, target);
             }
-        if(self.vue.phases[self.vue.phase_count] == "Voting")
+        if(self.vue.phases[self.vue.phase_count] === "Voting")
         {
             $.post(cast_vote_url,
                 {
@@ -206,7 +206,7 @@ var app = function() {
                     vote: target.user_id,
                 },
                 function(){
-                    self.initializeUsers()
+                    self.initializeUsers();
                 })
         }
     };
@@ -249,7 +249,7 @@ var app = function() {
     self.seer = function(player, target) {
         if (target.user_id !== player.user_id)
         {
-            self.vue.player_log += "The seer sees a " + target.role + "\n"
+            self.vue.player_log += "The seer sees a " + target.role + "\n";
 
         }
     };
@@ -291,13 +291,13 @@ var app = function() {
         }
 
     });
-    self.vue.phase_max = self.vue.phases.length
+    self.vue.phase_max = self.vue.phases.length;
     self.vue.start_time = Date.now();
     self.initializeUsers();
 
     while(self.vue.users.length +3 > self.vue.roles.length)
     {
-        self.vue.roles.push("Villager")
+        self.vue.roles.push("Villager");
     }
     console.log(self.vue.roles);
     console.log(self.leader());

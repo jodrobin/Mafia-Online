@@ -24,7 +24,7 @@
           <div class="game_left_column">
               <div class="game_timer">
                   <div v-if="!has_game_ended">
-                      ${phases[phase_count]} ${turn}, ${timer_minutes} Minutes ${timer_seconds} Seconds Remaining
+                      ${phases[phase_count]}: ${timer_minutes} Minutes ${timer_seconds} Seconds Remaining
                   </div>
                   <div v-if="has_game_ended">
                       Game Over
