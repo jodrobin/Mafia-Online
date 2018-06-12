@@ -24,6 +24,7 @@ var app = function() {
             if(self.vue.timer_seconds <= 0) {
                 if (self.vue.timer_minutes <= 0){
                     if (self.vue.phase_count < self.vue.phase_max - 1) {
+                        self.initializeUsers();
                         self.vue.timer_minutes = 0;
                         self.vue.timer_seconds = 15;
                         if (self.vue.phase_count > 3)
@@ -69,6 +70,7 @@ var app = function() {
     }
 
     self.get_role = function() {
+        self.initializeUsers();
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
                 if (self.vue.users[i].user_id == user_id){
@@ -84,7 +86,22 @@ var app = function() {
             self.vue.user_id = data.user_id;
             self.vue.user_username = data.user_username;
             self.vue.game_id = data.game_id;
+
+            if(self.vue.roles_not_initialized){
+                self.vue.roles_not_initialized = false
+                while(self.vue.users.length +3 > self.vue.roles.length)
+                {
+                    self.vue.roles.push("Villager")
+                }
+                console.log(self.vue.roles);
+                console.log(self.leader());
+                if(self.leader())
+                {
+                    self.assign_roles()
+                }
+            }
         })
+
     };
 
     self.send_msg = function () {
@@ -99,6 +116,41 @@ var app = function() {
                 self.vue.new_msg = null;
             });
     };
+
+    self.leader = function() {
+    console.log(self.vue.users.length)
+    for(var i = self.vue.users.length - 1; i >= 0; i--)
+            {
+                console.log(self.vue.users[i]);
+                if (self.vue.users[i].user_id == user_id && self.vue.users[i].leader){
+                    return true
+                }
+            }
+            return false
+    }
+
+    self.assign_roles = function() {
+        for(var i = self.vue.users.length - 1; i >= 0; i--)
+            {
+                var x = Math.floor((Math.random() * (i+3)));
+                $.post(update_roles_url,
+                    {
+                        player: self.vue.users[i].user_id,
+                        role: self.vue.roles[x],
+
+                    },
+                    function () {
+
+                    });
+
+                 if (x > -1) {
+                    self.vue.roles.splice(x, 1);
+                 console.log(self.vue.roles);
+}
+
+            }
+        self.initializeUsers()
+    }
 
     self.get_new_msgs = function() {
 
@@ -215,10 +267,12 @@ var app = function() {
             user_username: null,
             timer_minutes: null,
             timer_seconds: null,
+            roles: ["Mafia", "Mafia", "Seer", "Robber", "Troublemaker", "Villager"],
             game_id: null,
             turn: 0,
             phase: 'Day',
             is_day: true,
+            roles_not_initialized: true,
             chat_timer: 2,
             has_game_ended: false,
             messages: [],
@@ -237,11 +291,20 @@ var app = function() {
         }
 
     });
-
     self.vue.phase_max = self.vue.phases.length
     self.vue.start_time = Date.now();
     self.initializeUsers();
 
+    while(self.vue.users.length +3 > self.vue.roles.length)
+    {
+        self.vue.roles.push("Villager")
+    }
+    console.log(self.vue.roles);
+    console.log(self.leader());
+    if(self.leader())
+    {
+        self.assign_roles()
+    }
     self.getTimer();
     self.get_new_msgs();
 

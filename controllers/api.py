@@ -39,6 +39,7 @@ def get_ingame_players():
 
     for row in db(db.player.current_game == game_id).select():
         player = dict(
+            leader=row.leader,
             role=row.role,
             initial_role = row.initial_role,
             user_email=row.user_email,
@@ -64,13 +65,13 @@ def swap_player_roles():
     print request.vars.p1_role
     p1 = request.vars.p1
     p2 = request.vars.p2
-    (db(db.player.id == p1).update(role=request.vars.p2_role))
-    (db(db.player.id == p2).update(role=request.vars.p1_role))
+    (db(db.player.user_id == p1).update(role=request.vars.p2_role))
+    (db(db.player.user_id == p2).update(role=request.vars.p1_role))
     return
 
 def cast_vote():
     p1 = request.vars.p1
-    (db(db.player.id == p1).update(vote=request.vars.vote))
+    (db(db.player.user_id == p1).update(vote=request.vars.vote))
 
 
 def update_player_info():
@@ -230,3 +231,10 @@ def join_game():
         )
 
     return "ok"
+
+def update_roles():
+    player = request.vars.player
+    (db(db.player.user_id == player).update(role=request.vars.role))
+    (db(db.player.user_id == player).update(initial_role=request.vars.role))
+
+    return
