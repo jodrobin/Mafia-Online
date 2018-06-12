@@ -94,6 +94,7 @@ var app = function() {
     };
 
     self.tally_votes = function() {
+
         $.getJSON(get_votes_url,  function(data){
             var plays = data.players;
             var mafia_present = false;
@@ -227,7 +228,6 @@ var app = function() {
 
         for(var i = self.vue.users.length - 1; i >= 0; i--)
             {
-                console.log(self.vue.users[i].user_id)
 
                 if (self.vue.users[i].user_id == playerID)
                 {

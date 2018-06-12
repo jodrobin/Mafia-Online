@@ -42,10 +42,14 @@
               </div>
               <div class="game_lobby_buttons">
                   <!-- Should only be visible to host -->
-                  <a class="logout_btn rounded" v-on:click="start_game">Start Game</a>
-                  <a class="logout_btn rounded" v-on:click="cancel_game" >Cancel Game</a>
+                  <div v-if="is_leader">
+                    <a class="logout_btn rounded" v-on:click="start_game">Start Game</a>
+                    <a class="logout_btn rounded" v-on:click="cancel_game" >Cancel Game</a>
+                  </div>
                   <!-- Should only be visible to non-hosts -->
-                  <a class="logout_btn rounded" v-on:click="leave_game" >Leave Game</a>
+                  <div v-if="!is_leader">
+                    <a class="logout_btn rounded" v-on:click="leave_game" >Leave Game</a>
+                  </div>
               </div>
             </div>
         </div>

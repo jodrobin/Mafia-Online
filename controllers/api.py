@@ -36,8 +36,12 @@ def get_users():
 def get_ingame_players():
     players = []
     game_id = db(db.player.user_email == auth.user.email).select().first().current_game
+    is_leader = False
 
     for row in db(db.player.current_game == game_id).select():
+        if row.user_email == auth.user.email:
+            is_leader = row.leader
+
         player = dict(
             leader=row.leader,
             role=row.role,
@@ -51,6 +55,7 @@ def get_ingame_players():
         players.append(player)
 
     return response.json(dict(
+        is_leader=is_leader,
         players=players,
         user_id=auth.user.id,
         user_username=auth.user.username,
